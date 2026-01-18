@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOMADO Inc. | The Art of Living</title>
+    <title>NOMADO inc. | 関わることで、まちが少し、楽しくなる。</title>
+    <!-- フォント：親しみやすいゴシックを中心に -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400&family=Noto+Serif+JP:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- ローディング -->
+    <!-- ローディング：白背景で清潔に -->
     <div id="loader">
         <div class="loader-inner">
             <span class="loader-text">NOMADO</span>
@@ -19,7 +20,7 @@
         </div>
     </div>
 
-    <!-- NEW: ヘッダー（企業ロゴとメニュー） -->
+    <!-- ヘッダー：シンプルに -->
     <header class="site-header">
         <div class="header-logo">NOMADO inc.</div>
         <div class="menu-btn" id="menuBtn">
@@ -27,22 +28,28 @@
         </div>
     </header>
 
-    <!-- NEW: ナビゲーションメニュー（隠し画面） -->
+    <!-- ナビゲーションメニュー -->
     <nav id="navOverlay">
         <ul class="nav-list">
-            <li><a href="#philosophy" class="nav-link">Philosophy</a></li>
-            <li><a href="#identity" class="nav-link">About</a></li>
+            <li><a href="#concept" class="nav-link">Concept</a></li>
             <li><a href="#works" class="nav-link">Works</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
             <li><a href="mailto:info@nomado.co.jp" class="nav-link contact">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- HERO -->
+    <!-- HERO：余白とコピーの力 -->
     <section id="hero">
-        <div class="hero-bg"></div> 
-        <div class="hero-content fade-up-delay">
-            <p class="hero-question">それは本当に、無駄だろうか。</p>
-            <h1 class="hero-statement">生きるを、アートに。</h1>
+        <div class="hero-container fade-up-delay">
+            <h1 class="main-copy">
+                関わることで、<br>
+                まちが少し、<br>
+                楽しくなる。
+            </h1>
+            <p class="sub-copy">
+                福祉・教育・食を軸に、<br>
+                世代や立場を越えて人が集まる場を育てています。
+            </p>
         </div>
         <div class="scroll-indicator">
             <span>Scroll</span>
@@ -50,127 +57,102 @@
         </div>
     </section>
 
-    <!-- PHILOSOPHY -->
-    <section id="philosophy">
-        <div class="container narrow">
-            <div class="philosophy-head fade-up">
-                <h2 class="tategaki">
-                    効率より、納得を。<br>
-                    成果より、物語を。
-                </h2>
-            </div>
-            <div class="philosophy-body fade-up">
+    <!-- CONCEPT：意志あるスタンス -->
+    <section id="concept" class="fade-up">
+        <div class="container narrow text-center">
+            <p class="concept-lead">
+                無理に盛り上げなくてもいい。<br>
+                ただ、そこに居場所があるだけでいい。
+            </p>
+            <div class="concept-body">
                 <p>
-                    効率や成果では測れないものに、<br>
-                    人はときどき情熱を感じ、人生を変えられる。
-                </p>
-                <p>
-                    誰かにとって“無駄”と思われることでも、<br>
-                    それに本気になれる瞬間こそが、人生を輝かせる。
-                </p>
-                <p class="philosophy-conclusion">
-                    NOMADOは、<br>その可能性を問い続ける実験場です。
+                    私たちは、効率や成果だけを追い求めるのではなく、<br>
+                    地域の中で「納得」や「つながり」を育てることを大切にしています。<br>
+                    押しつけがましくなく、でも本気で遊ぶ。<br>
+                    そんなスタンスが、まちの新しい景色をつくると信じています。
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- IDENTITY (What's NOMADO復活) -->
-    <section id="identity" class="fade-up">
-        <div class="container">
-            <div class="identity-box">
-                <!-- ここを復活・調整 -->
-                <h3 class="whats-nomado">What's NOMADO?</h3>
-                <p class="identity-derivation">
-                    Nomad <span class="small">(自由な旅人)</span> + Do? <span class="small">(問い)</span>
-                </p>
-                <p class="identity-text">
-                    遊びながら本気で仕事し、<br>
-                    本気で遊ぶ。<br><br>
-                    夢はひとりで見るものじゃない。<br>
-                    みんなで育てるものだ。
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- HISTORY -->
-    <section id="history">
-        <div class="container fade-up">
-            <div class="history-content">
-                <div class="history-text">
-                    <span class="eng-label">HISTORY</span>
-                    <p class="history-lead">
-                        10年間、糸島で培ってきた<br>
-                        「Greenchord」という基盤。
-                    </p>
-                    <p class="history-desc">
-                        私たちの物語は、音楽事業から始まりました。<br>
-                        地域に根ざし、音を紡いできた確かな信頼。<br>
-                        派手さはありませんが、この土台があるからこそ、<br>
-                        私たちは新しい「祭」へと挑戦できます。
-                    </p>
-                </div>
-                <div class="history-image"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- WORKS -->
+    <!-- WORKS：3つの軸 -->
     <section id="works">
         <div class="container">
-            <h2 class="section-title fade-up">WORKS</h2>
+            <div class="section-header fade-up">
+                <span class="eng-label">WORKS</span>
+                <h2 class="section-title">地域の楽しみをつくる、<br>3つの入り口。</h2>
+            </div>
             
+            <!-- 01 Music -->
             <article class="work-card fade-up">
+                <div class="work-image img-music"></div>
                 <div class="work-content">
-                    <span class="work-num">01. Music</span>
+                    <span class="work-cat">Music / Education</span>
                     <h3 class="work-title">Greenchord</h3>
                     <p class="work-desc">
-                        音は、うまさの競争ではなく、<br>
-                        生き方を映す表現だと、私たちは考えています。
+                        音は、うまさの競争ではなく、生き方を映す表現。<br>
+                        森の楽器制作や音楽教室を通じて、感性を育む場を提供しています。
                     </p>
-                    <a href="music.html" class="btn-line">View More</a>
+                    <a href="music.html" class="btn-arrow">View More</a>
                 </div>
-                <div class="work-image img-music"></div>
             </article>
 
+            <!-- 02 Food -->
             <article class="work-card reverse fade-up">
+                <div class="work-image img-food"></div>
                 <div class="work-content">
-                    <span class="work-num">02. Food & Bar</span>
+                    <span class="work-cat">Food / Communication</span>
                     <h3 class="work-title">喫茶ぐりこ / yorunoma</h3>
                     <p class="work-desc">
-                        美味しいお店は増えた。<br>
-                        でも、居場所になるお店は、意外と少ない。
+                        美味しいお店は増えた。でも、居場所になるお店は少ない。<br>
+                        昼は安らぎ、夜は語らいの場として、食を通じた交流を生み出します。
                     </p>
-                    <a href="food.html" class="btn-line">View More</a>
+                    <a href="food.html" class="btn-arrow">View More</a>
                 </div>
-                <div class="work-image img-food"></div>
             </article>
 
+            <!-- 03 Festival -->
             <article class="work-card fade-up">
+                <div class="work-image img-fest"></div>
                 <div class="work-content">
-                    <span class="work-num">03. Festival</span>
+                    <span class="work-cat">Festival / Local</span>
                     <h3 class="work-title">駄菓子屋ROCK</h3>
                     <p class="work-desc">
-                        祭は、非日常ではなく、<br>
-                        人と人が戻ってこられる「場」だと考えています。
+                        祭は非日常ではなく、人と人が戻ってこられる日常の延長。<br>
+                        駄菓子と縁日遊びで、大人も子どもも混ざり合う景色をつくります。
                     </p>
-                    <a href="festival.html" class="btn-line">View More</a>
+                    <a href="festival.html" class="btn-arrow">View More</a>
                 </div>
-                <div class="work-image img-fest"></div>
             </article>
+        </div>
+    </section>
+
+    <!-- ABOUT / HISTORY -->
+    <section id="about">
+        <div class="container fade-up">
+            <div class="about-box">
+                <div class="about-text">
+                    <span class="eng-label">ABOUT US</span>
+                    <h3>NOMADO inc.</h3>
+                    <p>
+                        「Nomad（自由な旅人）」+「Do?（問い）」。<br>
+                        10年間、糸島で培ってきた「Greenchord」という基盤の上に、<br>
+                        新しい地域共創の形を積み上げていきます。<br>
+                        派手さはありませんが、確かな意志を持って。
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
         <div class="footer-inner fade-up">
-            <div class="logo-area">NOMADO Inc.</div>
-            <p class="msg">生きるを、アートに。</p>
+            <div class="logo-area">NOMADO inc.</div>
             <div class="footer-links">
                 <a href="mailto:info@nomado.co.jp">Contact</a>
             </div>
-            <p class="copyright">© 2025 Nomado Inc.</p>
+            <p class="copyright">© 2025 NOMADO inc.</p>
         </div>
     </footer>
 
