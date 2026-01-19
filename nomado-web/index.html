@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOMADO inc. | 関わることで、まちが少し、楽しくなる。</title>
-    <!-- フォント：親しみやすいゴシックを中心に -->
+    <title>NOMADO inc. | 人が集まると、糸島のまちが少し、楽しくなる。</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
@@ -12,7 +11,6 @@
 </head>
 <body>
 
-    <!-- ローディング：白背景で清潔に -->
     <div id="loader">
         <div class="loader-inner">
             <span class="loader-text">NOMADO</span>
@@ -20,7 +18,6 @@
         </div>
     </div>
 
-    <!-- ヘッダー：シンプルに -->
     <header class="site-header">
         <div class="header-logo">NOMADO inc.</div>
         <div class="menu-btn" id="menuBtn">
@@ -28,7 +25,6 @@
         </div>
     </header>
 
-    <!-- ナビゲーションメニュー -->
     <nav id="navOverlay">
         <ul class="nav-list">
             <li><a href="#concept" class="nav-link">Concept</a></li>
@@ -38,30 +34,34 @@
         </ul>
     </nav>
 
-    <!-- HERO：余白とコピーの力 -->
+    <!-- HERO：夕日×ホワイトグラデーション -->
     <section id="hero">
+        <div class="hero-bg"></div> <!-- 背景画像用 -->
+        <div class="hero-overlay"></div> <!-- 白いグラデーション用 -->
+        
         <div class="hero-container fade-up-delay">
             <h1 class="main-copy">
-                関わることで、<br>
+                人が集まると、<br>
                 まちが少し、<br>
                 楽しくなる。
             </h1>
             <p class="sub-copy">
-                福祉・教育・食を軸に、<br>
-                世代や立場を越えて人が集まる場を育てています。
+                音楽やお祭り、飲食をきっかけに、<br>
+                福祉や教育、企業とともに関わりながら、<br>
+                地域をちょっと盛り上げています。<br>
             </p>
         </div>
+        
         <div class="scroll-indicator">
             <span>Scroll</span>
             <div class="line"></div>
         </div>
     </section>
 
-    <!-- CONCEPT：意志あるスタンス -->
+    <!-- CONCEPT -->
     <section id="concept" class="fade-up">
         <div class="container narrow text-center">
             <p class="concept-lead">
-                無理に盛り上げなくてもいい。<br>
                 ただ、そこに居場所があるだけでいい。
             </p>
             <div class="concept-body">
@@ -75,7 +75,7 @@
         </div>
     </section>
 
-    <!-- WORKS：3つの軸 -->
+    <!-- WORKS -->
     <section id="works">
         <div class="container">
             <div class="section-header fade-up">
@@ -83,7 +83,6 @@
                 <h2 class="section-title">地域の楽しみをつくる、<br>3つの入り口。</h2>
             </div>
             
-            <!-- 01 Music -->
             <article class="work-card fade-up">
                 <div class="work-image img-music"></div>
                 <div class="work-content">
@@ -97,7 +96,6 @@
                 </div>
             </article>
 
-            <!-- 02 Food -->
             <article class="work-card reverse fade-up">
                 <div class="work-image img-food"></div>
                 <div class="work-content">
@@ -111,7 +109,6 @@
                 </div>
             </article>
 
-            <!-- 03 Festival -->
             <article class="work-card fade-up">
                 <div class="work-image img-fest"></div>
                 <div class="work-content">
@@ -127,7 +124,7 @@
         </div>
     </section>
 
-    <!-- ABOUT / HISTORY -->
+    <!-- ABOUT -->
     <section id="about">
         <div class="container fade-up">
             <div class="about-box">
