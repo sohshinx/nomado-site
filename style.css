@@ -172,18 +172,15 @@ a { text-decoration: none; color: inherit; transition: 0.3s ease; }
         rgba(255,255,255,0) 100%);
     z-index: 1;
 }
-
-/* スマホ対応のグラデーション調整 */
-@media (max-width: 768px) {
     /* スマホ対応のグラデーション調整 */
 @media (max-width: 768px) {
     .hero-bg {
         background-attachment: scroll; /* スマホは固定解除 */
         
         /* 修正箇所：右上の夕日が見えるように位置を調整 */
-        /* 1つ目の数字(75%)：左右の位置（0%が左端、100%が右端） */
+        /* 1つ目の数字(90%)：左右の位置（0%が左端、100%が右端） */
         /* 2つ目の数字(20%)：上下の位置（0%が上端、100%が下端） */
-        background-position: 75% 20%; 
+        background-position: 90% 20%; 
     }
     
     .hero-overlay {
@@ -208,7 +205,7 @@ a { text-decoration: none; color: inherit; transition: 0.3s ease; }
         text-align: center;
         padding: 0 20px;
     }
-}
+
 
 .hero-container {
     position: relative;
