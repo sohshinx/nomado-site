@@ -175,10 +175,27 @@ a { text-decoration: none; color: inherit; transition: 0.3s ease; }
 
 /* スマホ対応のグラデーション調整 */
 @media (max-width: 768px) {
+    /* スマホ対応のグラデーション調整 */
+@media (max-width: 768px) {
     .hero-bg {
         background-attachment: scroll; /* スマホは固定解除 */
-        background-position: center;
+        
+        /* 修正箇所：右上の夕日が見えるように位置を調整 */
+        /* 1つ目の数字(75%)：左右の位置（0%が左端、100%が右端） */
+        /* 2つ目の数字(20%)：上下の位置（0%が上端、100%が下端） */
+        background-position: 75% 20%; 
     }
+    
+    .hero-overlay {
+        /* ...ここは変更なし... */
+        background: linear-gradient(180deg, 
+            rgba(255,255,255,0.85) 0%, 
+            rgba(255,255,255,0.6) 50%,
+            rgba(255,255,255,0.9) 100%);
+    }
+    
+    /* ...以下省略... */
+}
     .hero-overlay {
         /* スマホ用：全体に薄く白をかける＋下から白 */
         background: linear-gradient(180deg, 
