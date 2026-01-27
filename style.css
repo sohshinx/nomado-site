@@ -453,3 +453,81 @@ footer {
     animation: simpleFadeIn 1.2s ease 0.8s forwards;
 }
 @keyframes simpleFadeIn { to { opacity: 1; transform: translateY(0); } }
+/* --- Case Study Section (実績) --- */
+
+.case-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.case-item {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* 控えめな影で落ち着きを */
+    transition: transform 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .case-item {
+        flex-direction: row;
+        align-items: stretch; /* 高さを揃える */
+    }
+}
+
+.case-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.case-img {
+    width: 100%;
+    min-height: 250px;
+    background-size: cover;
+    background-position: center;
+}
+@media (min-width: 768px) {
+    .case-img {
+        width: 40%; /* 画像比率 */
+        min-height: auto;
+    }
+}
+
+.case-content {
+    padding: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.case-title {
+    font-family: var(--font-sans);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: var(--text-main);
+}
+
+.case-sub {
+    font-size: 0.85rem;
+    color: var(--accent-green); /* 朱色でカテゴリを目立たせる */
+    font-weight: 600;
+    display: block;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-gray);
+}
+
+.case-desc {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-sub);
+    margin: 0;
+}

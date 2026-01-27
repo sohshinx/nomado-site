@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dagashiya ROCK | NOMADO inc.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- このページ限定のスタイル --- */
+        :root {
+            --accent-green: #d94d36; /* 朱色アクセント */
+        }
+
+        /* ヘッダー設定：縦長の祭り写真を活かす */
+        .page-header {
+            height: 85vh;       /* 画面の85%を使ってダイナミックに */
+            min-height: 600px;
+            
+            display: flex;
+            flex-direction: column;
+            
+            /* ロゴを空の部分（上部）に配置するため上寄せ */
+            justify-content: flex-start; 
+            align-items: center;
+            
+            position: relative;
+            background-size: cover;
+            background-position: center top; /* 写真の上側（空）を基準に */
+            
+            /* 上部の空きスペース調整 */
+            padding-top: 15vh; 
+            margin-bottom: 100px;
+        }
+
+        /* フィルター：上部は文字が見えるよう暗く、下部は写真を見せる */
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,0.6) 0%, 
+                rgba(0,0,0,0.2) 40%, 
+                rgba(0,0,0,0) 100%);
+            z-index: 0;
+        }
+
+        .page-header-content {
+            z-index: 1;
+            text-align: center;
+            width: 100%;
+            padding: 0 20px;
+            animation: floatUp 1.5s ease-out;
+        }
+
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ロゴ画像の調整 */
+        .header-logo-img {
+            max-width: 350px;
+            width: 80%;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        }
+
+        .page-sub {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            letter-spacing: 0.1em;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            font-weight: 500;
+        }
+
+        /* コンセプト文の調整 */
+        .concept-lead {
+            color: var(--accent-green);
+            font-weight: 500;
+            font-size: 1.6rem;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        .service-list {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* スマホ時の微調整 */
+        @media (max-width: 768px) {
+            .page-header {
+                padding-top: 20vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー（共通） -->
+    <header class="site-header">
+        <div class="header-logo" style="color:#fff;">NOMADO inc.</div>
+        <div class="menu-btn" id="menuBtn">
+            <span style="background:#fff;"></span><span style="background:#fff;"></span>
+        </div>
+    </header>
+
+    <!-- ナビゲーション（共通） -->
+    <nav id="navOverlay">
+        <ul class="nav-list">
+            <li><a href="index.html#concept" class="nav-link">Concept</a></li>
+            <li><a href="index.html#works" class="nav-link">Works</a></li>
+            <li><a href="index.html#about" class="nav-link">About</a></li>
+            <li><a href="mailto:info@nomado.co.jp" class="nav-link contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-header" style="background-image: url('images/dagashiyarock_matsuri.jpg');">
+        <div class="page-header-content">
+            <!-- ロゴ画像 -->
+            <img src="images/dagashiya_logo.png" alt="Dagashiya ROCK" class="header-logo-img">
+            <p class="page-sub">あの頃のワクワクを、今のまちに。</p>
+        </div>
+    </section>
+
+    <!-- NARRATIVE: ABOUT & ATMOSPHERE -->
+    <section class="fade-up">
+        <div class="container narrow text-center">
+            
+            <!-- 駄菓子屋ROCKとは -->
+            <div class="narrative-block">
+                <h2 class="narrative-title">駄菓子屋だけど、<br>ただの駄菓子屋じゃない。</h2>
+                <p class="narrative-text">
+                    10円玉を握りしめて走った、あの頃の記憶。<br>
+                    私たちがつくりたいのは、そんな「懐かしさ」だけではありません。<br><br>
+                    ここは、駄菓子をきっかけに人が出会う交差点。<br>
+                    学校帰りの子どもたち、仕事終わりの大人たち、<br>
+                    地元の企業や、福祉施設の仲間たち。<br>
+                    肩書きや年齢を脱ぎ捨てて、みんながフラットに混ざり合う。<br>
+                    そんな、まちの「居場所」です。
+                </p>
+            </div>
+
+            <!-- どんな場所か・どんな人か -->
+            <div class="narrative-block" style="margin-top: 100px;">
+                <h2 class="narrative-title">大人への言い訳と、<br>子どもへの招待状。</h2>
+                <p class="narrative-text">
+                    「お祭りだから」と言えば、大人は少し羽目を外せる。<br>
+                    「遊びにおいで」と言えば、子どもは目を輝かせる。<br><br>
+                    音楽が鳴れば、誰かが踊りだす。<br>
+                    屋台が並べば、会話が生まれる。<br>
+                    正しいルールよりも、楽しいハプニングを。<br>
+                    私たちは、そんな「日常の延長にある非日常」をつくっています。
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ACTIVITY (実績・活動内容) -->
+    <section id="works" style="background:transparent; padding-top:120px;">
+        <div class="container">
+            <div class="section-header text-center fade-up" style="margin-bottom: 60px;">
+                <span class="eng-label">WHAT WE DO</span>
+                <h2 class="section-title">まちを遊ぶ、3つの方法。</h2>
+            </div>
+            
+            <div class="service-list fade-up">
+                <!-- 01: Produce -->
+                <div class="service-item">
+                    <span class="service-head">01. Produce</span>
+                    <h3 class="service-name">縁日・空間プロデュース</h3>
+                    <p class="service-desc">
+                        いつもの場所を、お祭り会場に。<br>
+                        企業の感謝祭から地域の夏祭りまで、射的や輪投げ、櫓（やぐら）を組んで、誰もが童心に帰れる空間ごとプロデュースします。
+                    </p>
+                </div>
+
+                <!-- 02: Performance -->
+                <div class="service-item">
+                    <span class="service-head">02. Performance</span>
+                    <h3 class="service-name">お祭りパフォーマンス</h3>
+                    <p class="service-desc">
+                        ただモノを売るだけじゃ、つまらない。<br>
+                        マイク一本で会場を沸かせ、音楽で心をつなぐ。<br>
+                        その場の空気を「熱狂」に変える、ライブ感のあるお祭りをお届けします。
+                    </p>
+                </div>
+
+                <!-- 03: Community -->
+                <div class="service-item">
+                    <span class="service-head">03. Community</span>
+                    <h3 class="service-name">多世代交流・場づくり</h3>
+                    <p class="service-desc">
+                        子どもが笑えば、大人が癒やされる。<br>
+                        福祉施設や教育現場とも連携し、障がいや世代の壁を「楽しい」で飛び越える。<br>
+                        そんな優しいごちゃまぜの場をつくっています。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASES (実績紹介) -->
+    <section id="cases" style="background: var(--bg-light); padding: 100px 20px;">
+        <div class="container">
+            <div class="section-header text-center fade-up" style="margin-bottom: 60px;">
+                <span class="eng-label">CASE STUDY</span>
+                <h2 class="section-title">実績と信頼。</h2>
+            </div>
+
+            <div class="case-list fade-up">
+                
+                <!-- Case 1 -->
+                <div class="case-item">
+                    <!-- 画像は適宜変更してください -->
+                    <div class="case-img" style="background-image: url('images/dagashiyarock.jpg');"></div>
+                    <div class="case-content">
+                        <h3 class="case-title">九大伊都 蔦屋書店 夏祭り</h3>
+                        <span class="case-sub">共同開催｜商業施設イベント</span>
+                        <p class="case-desc">
+                            地域に開かれた書店空間での夏祭りを、共同で企画・開催。<br>
+                            うまい棒でおなじみの「やおきん」社の協力も得ながら、子どもから大人まで幅広い世代が集う一日となりました。<br>
+                            商業施設でありながら、どこか“地元のお祭り”のような空気感を大切にした企画が、多くの来場者に好評をいただきました。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="case-item">
+                    <div class="case-img" style="background-image: url('images/dagashiyarock_matsuri.jpg');"></div>
+                    <div class="case-content">
+                        <h3 class="case-title">放課後 秋祭り</h3>
+                        <span class="case-sub">自主開催｜来場者 約3,000人</span>
+                        <p class="case-desc">
+                            地域の子どもたちを中心にした、自主開催のお祭り。<br>
+                            想定を大きく上回る約3,000人が来場し、会場全体が一体感に包まれるイベントとなりました。<br>
+                            運営から企画、現場対応までを一貫して行い、“放課後に集まる場所”としての新しい可能性を示しました。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Case 3 -->
+                <div class="case-item">
+                    <div class="case-img" style="background-image: url('images/dagashiyarock.jpg');"></div>
+                    <div class="case-content">
+                        <h3 class="case-title">みたま祭り</h3>
+                        <span class="case-sub">県内大規模祭り｜出店・企画参加</span>
+                        <p class="case-desc">
+                            福岡県内でも規模の大きい伝統的なお祭りに出店。<br>
+                            来場者の導線や混雑を意識しながら、多くの人に楽しんでもらえる縁日ブースを展開しました。<br>
+                            大規模イベントならではの制約の中でも、現場に合わせた柔軟な対応力が評価されました。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Case 4 -->
+                <div class="case-item">
+                    <div class="case-img" style="background-image: url('images/dagashiyarock_matsuri.jpg');"></div>
+                    <div class="case-content">
+                        <h3 class="case-title">REGALO 社内イベント出店</h3>
+                        <span class="case-sub">企業依頼｜社内・顧客向けイベント</span>
+                        <p class="case-desc">
+                            地元企業REGALO様からのご依頼で、社内イベントに出店。<br>
+                            社員の方々と一緒に場をつくり上げることで、招待されたお客様にも楽しんでいただける空間となりました。<br>
+                            “イベントを一緒につくる”スタンスが、企業イベントとの相性の良さにつながっています。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Case 5 -->
+                <div class="case-item">
+                    <div class="case-img" style="background-image: url('images/dagashiyarock.jpg');"></div>
+                    <div class="case-content">
+                        <h3 class="case-title">地元子ども会 縁日ブース</h3>
+                        <span class="case-sub">地域行事｜子ども会支援</span>
+                        <p class="case-desc">
+                            準備や運営の負担が大きい子ども会行事において、縁日ブースの出展を担当。<br>
+                            保護者の方々の負担を減らしながら、通常では難しい規模感と内容を実現しました。<br>
+                            子どもたちの笑顔と同時に、大人の安心感も生まれる場となりました。
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- STANCE & CTA -->
+    <section class="fade-up" style="padding: 100px 20px;">
+        <div class="container narrow text-center">
+            
+            <!-- 大切にしていること -->
+            <div class="narrative-block">
+                <h2 class="narrative-title" style="font-size: 1.6rem;">まちの隙間を、遊び場に。</h2>
+                <p class="narrative-text">
+                    立派な建物はいりません。<br>
+                    公園の片隅でも、駐車場の空き地でも。<br>
+                    人が集まって笑い合えば、そこはもう最高のお祭り会場です。<br><br>
+                    これからも、糸島の風に吹かれながら、<br>
+                    本気で遊んでいきます。
+                </p>
+            </div>
+
+            <!-- CTA: Instagram -->
+            <div class="cta-area" style="margin-top: 80px;">
+                <p style="margin-bottom: 20px; color: var(--text-sub); font-size: 0.9rem;">
+                    日々の活動や、出没情報はInstagramで。
+                </p>
+                <a href="https://www.instagram.com/" target="_blank" class="btn-insta">
+                    <span class="insta-icon">📷</span> Instagramをのぞく
+                </a>
+            </div>
+
+            <!-- BACK BUTTON -->
+            <div class="back-link-area" style="margin-top: 60px;">
+                <a href="index.html" class="btn-back">Back to Top</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner fade-up">
+            <div class="logo-area">NOMADO inc.</div>
+            <p class="copyright">© 2025 NOMADO inc.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
