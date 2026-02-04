@@ -14,39 +14,27 @@
             --accent-green: #d94d36; /* 朱色アクセント */
         }
 
-        /* ヘッダー設定：縦長の祭り写真を活かす */
+        /* ヘッダー設定 */
         .page-header {
-            height: 85vh;       /* 画面の85%を使ってダイナミックに */
+            height: 85vh;
             min-height: 600px;
-            
             display: flex;
             flex-direction: column;
-            
-            /* ロゴを空の部分（上部）に配置するため上寄せ */
             justify-content: flex-start; 
             align-items: center;
-            
             position: relative;
             background-size: cover;
-            background-position: center top; /* 写真の上側（空）を基準に */
-            
-            /* 上部の空きスペース調整 */
+            background-position: center top;
             padding-top: 15vh; 
-            margin-bottom: 100px;
+            margin-bottom: 80px;
         }
-
-        /* フィルター：上部は文字が見えるよう暗く、下部は写真を見せる */
         .page-header::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, 
-                rgba(0,0,0,0.6) 0%, 
-                rgba(0,0,0,0.2) 40%, 
-                rgba(0,0,0,0) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0) 100%);
             z-index: 0;
         }
-
         .page-header-content {
             z-index: 1;
             text-align: center;
@@ -54,13 +42,10 @@
             padding: 0 20px;
             animation: floatUp 1.5s ease-out;
         }
-
         @keyframes floatUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* ロゴ画像の調整 */
         .header-logo-img {
             max-width: 350px;
             width: 80%;
@@ -68,7 +53,6 @@
             margin-bottom: 15px;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
         }
-
         .page-sub {
             color: #fff;
             font-size: 1.1rem;
@@ -78,30 +62,136 @@
             font-weight: 500;
         }
 
-        /* コンセプト文の調整 */
-        .concept-lead {
-            color: var(--accent-green);
+        /* 概要エリア */
+        .overview-box {
+            margin-bottom: 80px;
+            padding: 0 20px;
+        }
+        .overview-text {
+            font-size: 1rem;
+            line-height: 2.0;
+            color: var(--text-main);
             font-weight: 500;
-            font-size: 1.6rem;
+        }
+
+        /* ナラティブエリア */
+        .narrative-block { margin-bottom: 80px; }
+        .narrative-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin: 40px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* 縁日ラインナップ（グリッド） */
+        .lineup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .lineup-item {
+            text-align: center;
+        }
+        .lineup-photo {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-image: linear-gradient(135deg, #f5f5f5 25%, #e0e0e0 100%); 
+            transition: transform 0.3s ease;
+        }
+        .lineup-item:hover .lineup-photo {
+            transform: scale(1.05);
+        }
+        .lineup-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* 朱色背景セクション */
+        .section-red {
+            background-color: var(--accent-green) !important;
+            color: #fff;
+        }
+        .section-red .section-title,
+        .section-red .eng-label,
+        .section-red p,
+        .section-red .lineup-name {
+            color: #fff !important;
+        }
+        .section-red .eng-label { opacity: 0.8; }
+        .section-red .lineup-photo {
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* オファーブロック */
+        .offer-box {
+            background: #fff;
+            border: 1px solid var(--line-gray);
+            border-radius: 4px;
+            padding: 60px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .offer-intro {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 40px;
             line-height: 1.8;
-            letter-spacing: 0.05em;
+        }
+        .offer-list {
+            list-style: none;
+            padding: 0;
+        }
+        .offer-item {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+        .offer-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .offer-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+            display: block;
+        }
+        .offer-desc {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            line-height: 1.8;
+        }
+        .offer-cta {
+            text-align: center;
+            margin-top: 50px;
         }
 
-        .service-list {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-
-        /* スマホ時の微調整 */
+        /* スマホ対応 */
         @media (max-width: 768px) {
-            .page-header {
-                padding-top: 20vh;
-            }
+            .page-header { padding-top: 20vh; }
+            .lineup-grid { grid-template-columns: repeat(2, 1fr); }
+            .overview-text { text-align: left; }
+            .offer-box { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ヘッダー（共通） -->
+    <!-- ヘッダー -->
     <header class="site-header">
         <div class="header-logo" style="color:#fff;">NOMADO inc.</div>
         <div class="menu-btn" id="menuBtn">
@@ -109,100 +199,134 @@
         </div>
     </header>
 
-    <!-- ナビゲーション（共通） -->
     <nav id="navOverlay">
         <ul class="nav-list">
-            <li><a href="index.html#concept" class="nav-link">Concept</a></li>
-            <li><a href="index.html#works" class="nav-link">Works</a></li>
-            <li><a href="index.html#about" class="nav-link">About</a></li>
-            <li><a href="mailto:info@nomado.co.jp" class="nav-link contact">Contact</a></li>
+            <li><a href="index.html" class="nav-link">TOP</a></li>
+            <li><a href="music.html" class="nav-link">Music</a></li>
+            <li><a href="festival.html" class="nav-link">Festival</a></li>
+            <li><a href="food.html" class="nav-link">Food & Bar</a></li>
+            <li><a href="contact.html" class="nav-link contact">Contact</a></li>
         </ul>
     </nav>
 
     <!-- PAGE HERO -->
     <section class="page-header" style="background-image: url('images/dagashiyarock_matsuri.jpg');">
         <div class="page-header-content">
-            <!-- ロゴ画像 -->
             <img src="images/dagashiya_logo.png" alt="Dagashiya ROCK" class="header-logo-img">
-            <p class="page-sub">あの頃のワクワクを、今のまちに。</p>
+            <!-- ① ファーストコピー修正 -->
+            <p class="page-sub">あの頃、夢中になった遊びの熱を、<br>今の子どもたちへ。</p>
         </div>
     </section>
 
-    <!-- NARRATIVE: ABOUT & ATMOSPHERE -->
+    <!-- OVERVIEW & NARRATIVE -->
     <section class="fade-up">
         <div class="container narrow text-center">
             
-            <!-- 駄菓子屋ROCKとは -->
+            <!-- ② 事業概要修正 -->
+            <div class="overview-box">
+                <p class="overview-text">
+                    駄菓子屋ROCK いとしま店は、<br>
+                    昔懐かしい駄菓子と縁日遊びを軸に、地域・企業・学校・福祉施設とともに<br>
+                    「お祭りの場」をつくる出張型イベント事業です。<br><br>
+                    神社や商業施設、企業イベントなど、<br>
+                    場所や目的に合わせて企画から運営まで一貫して対応し、<br>
+                    世代を超えて人が集い、自然に交流が生まれる空間を届けています。
+                </p>
+            </div>
+            
+            <!-- ③〜⑤ 思想セクション修正 -->
             <div class="narrative-block">
-                <h2 class="narrative-title">駄菓子屋だけど、<br>ただの駄菓子屋じゃない。</h2>
+                <h2 class="narrative-title">大人も子どもも、<br>本気になれる体験型のお祭りを。</h2>
                 <p class="narrative-text">
-                    10円玉を握りしめて走った、あの頃の記憶。<br>
-                    私たちがつくりたいのは、そんな「懐かしさ」だけではありません。<br><br>
-                    ここは、駄菓子をきっかけに人が出会う交差点。<br>
-                    学校帰りの子どもたち、仕事終わりの大人たち、<br>
-                    地元の企業や、福祉施設の仲間たち。<br>
-                    肩書きや年齢を脱ぎ捨てて、みんながフラットに混ざり合う。<br>
-                    そんな、まちの「居場所」です。
+                    私たちが届けたいのは、<br>
+                    形だけのお祭りではなく、その場に流れる「空気」そのものです。<br><br>
+                    射的の景品を狙って、息を止める緊張感。<br>
+                    輪投げが外れて、思わず天を仰ぐ悔しさ。<br>
+                    その横で、子ども以上に真剣な顔をして応援するお父さん。
+                </p>
+
+                <!-- 写真 -->
+                <img src="images/dagashiyarock_get.png" class="narrative-img" alt="夢中で遊ぶ子どもたち">
+
+                <p class="narrative-text">
+                    当たった瞬間の爆発するような歓声も、<br>
+                    外した時の地団駄も、全部ひっくるめて。<br>
+                    家族や友達と一喜一憂する、その「体験」に価値をおいています。<br><br>
+                    「形式」や「正解」に縛られるよりも、<br>
+                    その場で生まれる偶然や感情を大切に。<br>
+                    日常の延長線上に、記憶に残る熱量ある「縁日」をつくり出します。
                 </p>
             </div>
-
-            <!-- どんな場所か・どんな人か -->
-            <div class="narrative-block" style="margin-top: 100px;">
-                <h2 class="narrative-title">大人への言い訳と、<br>子どもへの招待状。</h2>
-                <p class="narrative-text">
-                    「お祭りだから」と言えば、大人は少し羽目を外せる。<br>
-                    「遊びにおいで」と言えば、子どもは目を輝かせる。<br><br>
-                    音楽が鳴れば、誰かが踊りだす。<br>
-                    屋台が並べば、会話が生まれる。<br>
-                    正しいルールよりも、楽しいハプニングを。<br>
-                    私たちは、そんな「日常の延長にある非日常」をつくっています。
-                </p>
-            </div>
-
         </div>
     </section>
 
-    <!-- ACTIVITY (実績・活動内容) -->
-    <section id="works" style="background:transparent; padding-top:120px;">
+    <!-- LINEUP: 縁日コンテンツ (朱色背景) -->
+    <section id="lineup" class="section-red" style="padding: 100px 20px;">
         <div class="container">
-            <div class="section-header text-center fade-up" style="margin-bottom: 60px;">
-                <span class="eng-label">WHAT WE DO</span>
-                <h2 class="section-title">まちを遊ぶ、3つの方法。</h2>
+            <div class="section-header text-center fade-up">
+                <span class="eng-label">LINEUP</span>
+                <h2 class="section-title">縁日のメニュー</h2>
+                <!-- ⑥ LINEUP導入文修正 -->
+                <p style="margin-top:20px;">
+                    射的、輪投げ、綿菓子にスマートボール。<br>
+                    昔ながらの遊びを、今の場にフィットするかたちで。
+                </p>
             </div>
-            
-            <div class="service-list fade-up">
-                <!-- 01: Produce -->
-                <div class="service-item">
-                    <span class="service-head">01. Produce</span>
-                    <h3 class="service-name">縁日・空間プロデュース</h3>
-                    <p class="service-desc">
-                        いつもの場所を、お祭り会場に。<br>
-                        企業の感謝祭から地域の夏祭りまで、射的や輪投げ、櫓（やぐら）を組んで、誰もが童心に帰れる空間ごとプロデュースします。
-                    </p>
-                </div>
 
-                <!-- 02: Performance -->
-                <div class="service-item">
-                    <span class="service-head">02. Performance</span>
-                    <h3 class="service-name">お祭りパフォーマンス</h3>
-                    <p class="service-desc">
-                        ただモノを売るだけじゃ、つまらない。<br>
-                        マイク一本で会場を沸かせ、音楽で心をつなぐ。<br>
-                        その場の空気を「熱狂」に変える、ライブ感のあるお祭りをお届けします。
-                    </p>
+            <!-- 画像グリッド -->
+            <div class="lineup-grid fade-up">
+                <div class="lineup-item">
+                    <div class="lineup-photo" style="background-image: url('images/shateki.jpg');"></div>
+                    <span class="lineup-name">射的</span>
                 </div>
-
-                <!-- 03: Community -->
-                <div class="service-item">
-                    <span class="service-head">03. Community</span>
-                    <h3 class="service-name">多世代交流・場づくり</h3>
-                    <p class="service-desc">
-                        子どもが笑えば、大人が癒やされる。<br>
-                        福祉施設や教育現場とも連携し、障がいや世代の壁を「楽しい」で飛び越える。<br>
-                        そんな優しいごちゃまぜの場をつくっています。
-                    </p>
+                <div class="lineup-item">
+                    <div class="lineup-photo" style="background-image: url('images/wanage.jpg');"></div>
+                    <span class="lineup-name">輪投げ</span>
+                </div>
+                <div class="lineup-item">
+                    <div class="lineup-photo" style="background-image: url('images/yoyo.jpg');"></div>
+                    <span class="lineup-name">ヨーヨーすくい</span>
+                </div>
+                <div class="lineup-item">
+                    <div class="lineup-photo" style="background-image: url('images/superball.jpg');"></div>
+                    <span class="lineup-name">スーパーボール</span>
+                </div>
+                <div class="lineup-item">
+                    <div class="lineup-photo" style="background-image: url('images/cottoncandy.jpg');"></div>
+                    <span class="lineup-name">綿菓子</span>
+                </div>
+                <div class="lineup-item">
+                    <div class="lineup-photo" style="background-image: url('images/smartball.jpg');"></div>
+                    <span class="lineup-name">スマートボール</span>
+                </div>
+                <div class="lineup-item">
+                    <div class="lineup-photo" style="background-image: url('images/bowling.jpg');"></div>
+                    <span class="lineup-name">ボーリング</span>
+                </div>
+                <div class="lineup-item">
+                    <div class="lineup-photo" style="background-image: url('images/basket.jpg');"></div>
+                    <span class="lineup-name">バスケ</span>
+                </div>
+                <div class="lineup-item">
+                    <div class="lineup-photo" style="background-image: url('images/pingpong.jpg');"></div>
+                    <span class="lineup-name">卓球</span>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- PERFORMANCE: 櫓（やぐら）・提灯 -->
+    <section style="padding: 100px 20px;">
+        <div class="container narrow text-center fade-up">
+            <!-- ⑦ 櫓セクション見出し修正 -->
+            <h2 class="section-title" style="color:var(--accent-green);">会場全体をひとつにする、<br>櫓（やぐら）と提灯の演出。</h2>
+            <p class="narrative-text" style="margin-bottom:40px;">
+                会場の中心に櫓（やぐら）を組み、<br>
+                提灯の灯りで、煌びやかに空間を彩る。<br>
+                音楽とパフォーマンスが重なれば、そこはもう非日常。<br>
+                会場全体を巻き込む、圧倒的な一体感をつくりだします。
+            </p>
+            <img src="images/yagura_tyouthin.jpg" class="narrative-img" alt="櫓とパフォーマンス">
         </div>
     </section>
 
@@ -211,32 +335,33 @@
         <div class="container">
             <div class="section-header text-center fade-up" style="margin-bottom: 60px;">
                 <span class="eng-label">CASE STUDY</span>
-                <h2 class="section-title">実績と信頼。</h2>
+                <!-- ⑧ CASE STUDY見出し修正 -->
+                <h2 class="section-title">神社、企業、地域行事。<br>それぞれの現場で。</h2>
+                <p style="margin-top:15px; color:var(--text-sub);">これまでに関わってきた、お祭りのかたち。</p>
             </div>
 
             <div class="case-list fade-up">
                 
                 <!-- Case 1 -->
                 <div class="case-item">
-                    <!-- 画像は適宜変更してください -->
-                    <div class="case-img" style="background-image: url('images/dagashiyarock.jpg');"></div>
+                    <div class="case-img" style="background-image: url('images/dagashiyarock_tsutaya.jpg');"></div>
                     <div class="case-content">
                         <h3 class="case-title">九大伊都 蔦屋書店 夏祭り</h3>
                         <span class="case-sub">共同開催｜商業施設イベント</span>
                         <p class="case-desc">
                             地域に開かれた書店空間での夏祭りを、共同で企画・開催。<br>
                             うまい棒でおなじみの「やおきん」社の協力も得ながら、子どもから大人まで幅広い世代が集う一日となりました。<br>
-                            商業施設でありながら、どこか“地元のお祭り”のような空気感を大切にした企画が、多くの来場者に好評をいただきました。
+                            商業施設でありながら、どこか“地元のお祭り”のような空気感を大切にした企画が好評でした。
                         </p>
                     </div>
                 </div>
 
                 <!-- Case 2 -->
                 <div class="case-item">
-                    <div class="case-img" style="background-image: url('images/dagashiyarock_matsuri.jpg');"></div>
+                    <div class="case-img" style="background-image: url('images/akimatsuri.jpg');"></div>
                     <div class="case-content">
                         <h3 class="case-title">放課後 秋祭り</h3>
-                        <span class="case-sub">自主開催｜来場者 約3,000人</span>
+                        <span class="case-sub">自主開催｜筑前前原駅前 丸田池公園にて開催</span>
                         <p class="case-desc">
                             地域の子どもたちを中心にした、自主開催のお祭り。<br>
                             想定を大きく上回る約3,000人が来場し、会場全体が一体感に包まれるイベントとなりました。<br>
@@ -247,26 +372,26 @@
 
                 <!-- Case 3 -->
                 <div class="case-item">
-                    <div class="case-img" style="background-image: url('images/dagashiyarock.jpg');"></div>
+                    <div class="case-img" style="background-image: url('images/dagashiyarock_mitama.jpg');"></div>
                     <div class="case-content">
-                        <h3 class="case-title">みたま祭り</h3>
-                        <span class="case-sub">県内大規模祭り｜出店・企画参加</span>
+                        <h3 class="case-title">護国神社 みたま祭り</h3>
+                        <span class="case-sub">県内大規模祭り｜出店</span>
                         <p class="case-desc">
                             福岡県内でも規模の大きい伝統的なお祭りに出店。<br>
-                            来場者の導線や混雑を意識しながら、多くの人に楽しんでもらえる縁日ブースを展開しました。<br>
-                            大規模イベントならではの制約の中でも、現場に合わせた柔軟な対応力が評価されました。
+                            約4000灯の提灯が輝き、幻想的な空間の中、多くの人に楽しんでもらえる縁日ブースを展開。<br>
+                            大規模イベントならではの熱気の中、4日間走りきることができました。
                         </p>
                     </div>
                 </div>
 
                 <!-- Case 4 -->
                 <div class="case-item">
-                    <div class="case-img" style="background-image: url('images/dagashiyarock_matsuri.jpg');"></div>
+                    <div class="case-img" style="background-image: url('images/dagashiyarock_regalo.jpg');"></div>
                     <div class="case-content">
                         <h3 class="case-title">REGALO 社内イベント出店</h3>
                         <span class="case-sub">企業依頼｜社内・顧客向けイベント</span>
                         <p class="case-desc">
-                            地元企業REGALO様からのご依頼で、社内イベントに出店。<br>
+                            福岡市を拠点とするハウスメーカーREGALO様からのご依頼で、社内イベントに出店。<br>
                             社員の方々と一緒に場をつくり上げることで、招待されたお客様にも楽しんでいただける空間となりました。<br>
                             “イベントを一緒につくる”スタンスが、企業イベントとの相性の良さにつながっています。
                         </p>
@@ -280,9 +405,23 @@
                         <h3 class="case-title">地元子ども会 縁日ブース</h3>
                         <span class="case-sub">地域行事｜子ども会支援</span>
                         <p class="case-desc">
-                            準備や運営の負担が大きい子ども会行事において、縁日ブースの出展を担当。<br>
+                            準備や運営の負担が大きい子ども会からの依頼で、縁日ブースの出展を担当。<br>
                             保護者の方々の負担を減らしながら、通常では難しい規模感と内容を実現しました。<br>
                             子どもたちの笑顔と同時に、大人の安心感も生まれる場となりました。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Case 6 -->
+                <div class="case-item">
+                    <div class="case-img" style="background-image: url('images/keiroevent.jpg');"></div>
+                    <div class="case-content">
+                        <h3 class="case-title">敬老会イベント</h3>
+                        <span class="case-sub">地域行事｜高齢者支援</span>
+                        <p class="case-desc">
+                            高齢者施設や地域の敬老会へ、昔懐かしい駄菓子屋と縁日セットを持って出張。<br>
+                            懐かしいお菓子や遊びをきっかけに会話が弾み、普段とは違う活気ある時間が流れます。<br>
+                            「孫と一緒に遊びたい」という声も多く、多世代交流のきっかけにもなっています。
                         </p>
                     </div>
                 </div>
@@ -291,37 +430,65 @@
         </div>
     </section>
 
-    <!-- STANCE & CTA -->
-    <section class="fade-up" style="padding: 100px 20px;">
-        <div class="container narrow text-center">
+    <!-- OFFER & CONTACT -->
+    <section class="fade-up" style="padding: 100px 20px; background: #fff;">
+        <div class="container text-center">
             
-            <!-- 大切にしていること -->
-            <div class="narrative-block">
-                <h2 class="narrative-title" style="font-size: 1.6rem;">まちの隙間を、遊び場に。</h2>
-                <p class="narrative-text">
-                    立派な建物はいりません。<br>
-                    公園の片隅でも、駐車場の空き地でも。<br>
-                    人が集まって笑い合えば、そこはもう最高のお祭り会場です。<br><br>
-                    これからも、糸島の風に吹かれながら、<br>
-                    本気で遊んでいきます。
+            <div class="offer-box">
+                <!-- ⑨ OFFER導入文修正 -->
+                <p class="offer-intro">
+                    地域・企業・学校・福祉施設など、<br>
+                    目的や規模に応じた出張型イベントを企画・運営しています。
                 </p>
+                <ul class="offer-list">
+                    <li class="offer-item">
+                        <span class="offer-title">イベント出店（縁日形式）</span>
+                        <p class="offer-desc">射的／輪投げ／綿菓子／スマートボール／スーパーボールすくい／ヨーヨーすくい／ボーリング／バスケ／卓球</p>
+                    </li>
+                    <li class="offer-item">
+                        <span class="offer-title">イベント企画運営</span>
+                        <p class="offer-desc">提灯や櫓の設置／機材のレンタル／企業・こども会・自治体イベントサポート</p>
+                    </li>
+                    <li class="offer-item">
+                        <span class="offer-title">出張駄菓子屋</span>
+                        <p class="offer-desc">駄菓子屋がない地域への出張営業</p>
+                    </li>
+                </ul>
+                
+                <div class="offer-cta">
+                    <p style="margin-bottom:20px; font-size:0.95rem;">要望に応じてご提案させていただきますので、<br>まずはお気軽にお問い合わせください。</p>
+                    <a href="contact.html" class="btn-insta" style="background: var(--text-main); color:#fff; border:none;">
+                        お問い合わせはこちら
+                    </a>
+                </div>
             </div>
 
-            <!-- CTA: Instagram -->
-            <div class="cta-area" style="margin-top: 80px;">
+        </div>
+    </section>
+
+    <!-- CTA: Instagram -->
+    <section class="fade-up" style="padding: 100px 20px;">
+        <div class="container narrow text-center">
+            <!-- ⑩ 最終CTAコピー修正 -->
+            <h2 class="narrative-title" style="font-size: 1.6rem;">
+                感動できる遊びの体験を、<br>
+                このまちの文化と、未来の思い出へ。
+            </h2>
+            <p class="narrative-text">
+                糸島の風と共に、<br>
+                次の熱狂をつくりにいきます。
+            </p>
+            <div class="cta-area" style="margin-top: 60px;">
                 <p style="margin-bottom: 20px; color: var(--text-sub); font-size: 0.9rem;">
                     日々の活動や、出没情報はInstagramで。
                 </p>
-                <a href="https://www.instagram.com/" target="_blank" class="btn-insta">
+                <a href="https://www.instagram.com/dagashiya_rock_itoshima/" target="_blank" class="btn-insta">
                     <span class="insta-icon">📷</span> Instagramをのぞく
                 </a>
             </div>
-
-            <!-- BACK BUTTON -->
             <div class="back-link-area" style="margin-top: 60px;">
                 <a href="index.html" class="btn-back">Back to Top</a>
             </div>
-
         </div>
     </section>
 
