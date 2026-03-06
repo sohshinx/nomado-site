@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | NOMADO inc.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- Contact Page Specific Styles --- */
+        :root {
+            /* ベースのアクセントカラー（NOMADO Green） */
+            --accent-green: #5c7c64;
+        }
+
+        /* ヘッダーエリア（画像なし・テキストのみ） */
+        .simple-header {
+            padding: 180px 20px 80px;
+            text-align: center;
+        }
+        .page-title {
+            font-family: var(--font-en);
+            font-size: 2.5rem;
+            letter-spacing: 0.1em;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+        .page-desc {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            line-height: 2.0;
+        }
+
+        /* フォームエリア */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto 120px;
+            padding: 0 20px;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        /* 入力グループ */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .form-label {
+            font-family: var(--font-en);
+            font-size: 0.85rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        /* 入力フィールド（ミニマルな下線スタイル） */
+        .form-input, 
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 10px 0;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            background: transparent;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--text-main);
+            border-radius: 0; /* iOS対策 */
+            transition: border-color 0.3s ease;
+        }
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-bottom-color: var(--accent-green);
+        }
+        .form-textarea {
+            min-height: 150px;
+            line-height: 1.8;
+            resize: vertical;
+        }
+        
+        /* 送信ボタン */
+        .btn-submit {
+            margin-top: 40px;
+            background: var(--text-main);
+            color: #fff;
+            border: 1px solid var(--text-main);
+            padding: 18px 60px;
+            font-family: var(--font-en);
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: center; /* 中央寄せ */
+            width: 100%;
+            max-width: 300px;
+        }
+        .btn-submit:hover {
+            background: #fff;
+            color: var(--text-main);
+        }
+
+        /* 会社情報（シンプルテキスト） */
+        .company-info {
+            text-align: center;
+            margin-bottom: 100px;
+            padding: 60px 20px;
+            border-top: 1px solid var(--line-gray);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .info-item {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        .info-label {
+            font-family: var(--font-en);
+            margin-right: 15px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-inner">
+            <span class="loader-text">CONTACT</span>
+            <div class="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- ヘッダー -->
+    <header class="site-header">
+        <div class="header-logo">NOMADO inc.</div>
+        <div class="menu-btn" id="menuBtn">
+            <span></span><span></span>
+        </div>
+    </header>
+
+    <!-- ナビゲーション -->
+    <nav id="navOverlay">
+        <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">TOP</a></li>
+            <li><a href="music.html" class="nav-link">Greenchord</a></li>
+            <li><a href="festival.html" class="nav-link" style="font-family: var(--font-sans);">駄菓子屋ROCK</a></li>
+            <li><a href="guriko.html" class="nav-link" style="font-family: var(--font-sans);">喫茶ぐりこ</a></li>
+            <li><a href="yorunoma.html" class="nav-link">BAR yorunoma</a></li>
+            <li><a href="contact.html" class="nav-link contact">お問合せ</a></li>
+        </ul>
+    </nav>
+
+    <!-- ページタイトルエリア -->
+    <section class="simple-header fade-up">
+        <div class="container narrow">
+            <h1 class="page-title">CONTACT</h1>
+            <p class="page-desc">
+                事業に関するご相談、取材のご依頼、<br>
+                その他のお問い合わせはこちらのフォームよりお願いいたします。<br>
+                内容を確認次第、担当者よりご連絡させていただきます。
+            </p>
+        </div>
+    </section>
+
+    <!-- フォームエリア -->
+    <section class="form-container fade-up">
+        <!-- 
+            ★重要: action="https://formspree.io/f/xvzwoprv" の
+            YOUR_FORM_ID をご自身のFormspree IDに書き換えてください。
+        -->
+        <form action="https://formspree.io/f/xvzwoprv" method="POST" class="contact-form">
+            
+            <!-- 事業カテゴリー選択 -->
+            <div class="form-group">
+                <label for="category" class="form-label">CATEGORY</label>
+                <select name="category" id="category" class="form-select" required>
+                    <option value="" disabled selected>お問い合わせ内容を選択してください</option>
+                    <option value="Music / Greenchord">音楽事業 / Greenchordについて</option>
+                    <option value="Festival / Dagashiya">お祭り事業 / 駄菓子屋ROCKについて</option>
+                    <option value="Food / Guriko">飲食事業 / 喫茶ぐりこについて</option>
+                    <option value="Bar / Yorunoma">飲食事業 / BAR yorunomaについて</option>
+                    <option value="Company / Recruit">会社全体 / 採用について</option>
+                    <option value="Other">その他</option>
+                </select>
+            </div>
+
+            <!-- お名前 -->
+            <div class="form-group">
+                <label for="name" class="form-label">NAME</label>
+                <input type="text" name="name" id="name" class="form-input" placeholder="お名前" required>
+            </div>
+
+            <!-- メールアドレス -->
+            <div class="form-group">
+                <label for="email" class="form-label">EMAIL</label>
+                <input type="email" name="email" id="email" class="form-input" placeholder="example@nomado.co.jp" required>
+            </div>
+
+            <!-- メッセージ本文 -->
+            <div class="form-group">
+                <label for="message" class="form-label">MESSAGE</label>
+                <textarea name="message" id="message" class="form-textarea" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+            </div>
+
+            <!-- 送信ボタン -->
+            <button type="submit" class="btn-submit">SEND MESSAGE</button>
+
+        </form>
+    </section>
+
+    <!-- 会社情報エリア -->
+    <section class="company-info fade-up">
+        <div class="container">
+            <p class="info-item">
+                <span class="info-label">ADDRESS</span>
+                〒819-1116 福岡県糸島市前原中央3-18-15
+            </p>
+            <p class="info-item">
+                <span class="info-label">MAIL</span>
+                info@nomado.co.jp
+            </p>
+            <p style="margin-top: 20px; font-size: 0.8rem; color: #999;">
+                ※お急ぎの場合は各店舗のInstagram DM等もご利用ください。
+            </p>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="footer-inner fade-up">
+            <div class="logo-area">NOMADO inc.</div>
+            <p class="copyright">© 2025 NOMADO inc.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

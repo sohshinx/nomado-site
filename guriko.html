@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kissa Guriko | NOMADO inc.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- このページ限定のスタイル --- */
+        :root {
+            /* 事業別テーマカラー：暖かみのあるオレンジ・アンバー */
+            --accent-green: #d68c45; 
+        }
+
+        /* ヘッダー設定（共通ルール継承） */
+        .page-header {
+            height: 80vh; /* カフェなので少し軽やかに */
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 中央寄せ */
+            align-items: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 80px;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            /* 写真の温かみを残すため、黒ではなく少しブラウン寄りのオーバーレイを入れるか、薄くする */
+            background: rgba(0,0,0,0.3);
+            z-index: 0;
+        }
+        .page-header-content {
+            z-index: 1;
+            text-align: center;
+            width: 100%;
+            padding: 0 20px;
+            animation: floatUp 1.5s ease-out;
+        }
+        .header-logo-img {
+            max-width: 280px; /* 少し控えめなサイズ感で上品に */
+            width: 60%;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 2px 10px rgba(0,0,0,0.3));
+        }
+        .page-sub {
+            color: #fff;
+            font-family: var(--font-serif); /* カフェなので明朝体で情緒的に */
+            font-size: 1.2rem;
+            margin-top: 10px;
+            letter-spacing: 0.15em;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            font-weight: 500;
+        }
+
+        /* MENUグリッドスタイル */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .menu-photo {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* インスタグラムライクな正方形 */
+            background-color: #f0f0f0;
+            background-size: cover;
+            background-position: center;
+            border-radius: 2px;
+            margin-bottom: 15px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .menu-item:hover .menu-photo {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        .menu-name {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+        .menu-desc {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            line-height: 1.8;
+        }
+
+        /* 店舗情報エリア */
+        .info-box {
+            background: #fff;
+            border-top: 1px solid var(--accent-green);
+            border-bottom: 1px solid var(--accent-green);
+            padding: 60px 0;
+            margin: 80px auto;
+        }
+        .info-dl {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .info-dl dt {
+            width: 30%;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 20px;
+            font-family: var(--font-en);
+            letter-spacing: 0.05em;
+        }
+        .info-dl dd {
+            width: 70%;
+            margin: 0 0 20px 0;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+        @media (max-width: 768px) {
+            .info-dl dt, .info-dl dd { width: 100%; margin-bottom: 10px; }
+            .info-dl dd { margin-bottom: 30px; }
+        }
+
+        /* 共通ボタン（微調整） */
+        .btn-insta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 40px;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+            font-family: var(--font-en);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: 0.3s;
+            background: transparent;
+            text-decoration: none;
+            gap: 10px;
+        }
+        .btn-insta:hover {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-inner">
+            <span class="loader-text">GURIKO</span>
+            <div class="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- ヘッダー -->
+    <header class="site-header">
+        <div class="header-logo">NOMADO inc.</div>
+        <div class="menu-btn" id="menuBtn">
+            <span></span><span></span>
+        </div>
+    </header>
+
+<nav id="navOverlay">
+        <ul class="nav-list">
+            <!-- 1. TOP -->
+            <li><a href="index.html" class="nav-link">TOP</a></li>
+            
+            <!-- 2. Greenchord -->
+            <li><a href="music.html" class="nav-link">Greenchord</a></li>
+            
+            <!-- 3. 駄菓子屋ROCK (日本語のためゴシック体指定) -->
+            <li><a href="festival.html" class="nav-link" style="font-family: var(--font-sans);">駄菓子屋ROCK</a></li>
+            
+            <!-- 4. 喫茶ぐりこ (日本語のためゴシック体指定) -->
+            <li><a href="guriko.html" class="nav-link" style="font-family: var(--font-sans);">喫茶ぐりこ</a></li>
+            
+            <!-- 5. BAR yorunoma -->
+            <li><a href="yorunoma.html" class="nav-link">BAR yorunoma</a></li>
+            
+            <!-- 6. お問合せ -->
+            <li><a href="contact.html" class="nav-link contact">お問合せ</a></li>
+        </ul>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <!-- 実際の画像パスに合わせて変更してください -->
+    <section class="page-header" style="background-image: url('images/guriko_header.jpg');">
+        <div class="page-header-content">
+            <!-- 実際のロゴパスに合わせて変更してください -->
+            <img src="images/guriko_logo.png" alt="喫茶ぐりこ" class="header-logo-img">
+            <p class="page-sub">おなかも心も満たす、まちの喫茶店。</p>
+        </div>
+    </section>
+
+    <!-- NARRATIVE / CONCEPT -->
+    <section class="fade-up">
+        <div class="container narrow text-center">
+            <span class="eng-label">CONCEPT</span>
+            <h2 class="narrative-title">水木金は至福のじかん。<br>お昼からのんびりゆったり。</h2>
+            
+            <div class="narrative-text">
+                <p>
+                    音楽スタジオ「Greenchord」のスペースが、<br>
+                    週に3日だけ、パンやコーヒーの香りに包まれます。<br><br>
+                    私たちが大切にしているのは、<br>
+                    誰でもふらりと立ち寄れる「居場所」であること。<br><br>
+                    おひとりさまで読書を楽しむのも、<br>
+                    お子様連れで賑やかにランチを囲むのも大歓迎です。<br><br>
+                    ランチプレート、ハンバーガーなど毎週メニューが代わり、<br>
+                    自社の畑「ノマドウ農園」で育てた野菜を使った、<br>
+                    手づくりの味もお楽しみいただけます。<br><br>
+                    愛情たっぷりの美味しいランチで、<br>
+                    あなたの午後を少しだけ、豊かにしますように。
+                </p>
+            </div>
+            
+            <!-- 雰囲気写真 -->
+            <img src="images/guriko002.jpg" class="narrative-img" alt="喫茶ぐりこ店内の様子と料理">
+        </div>
+    </section>
+
+    <!-- MENU / LUNCH -->   
+    <section id="menu" style="background: var(--bg-light); padding: 100px 20px;">
+        <div class="container">
+            <div class="section-header text-center fade-up">
+                <span class="eng-label">WEEKLY LUNCH & SWEETS</span>
+                <h2 class="section-title">週替わり│ぐりこのメニュー</h2>
+                <p style="margin-top:20px; color:var(--text-sub);">
+                    毎週変わる季節のスープランチやスイーツ。<br><br>
+                    バンズもパティもソースも手づくり！<br>
+                    ボリューム満点のハンバーガー。<br><br>
+                    その時々の「美味しい」をご用意してお待ちしています。
+                </p>
+            </div>
+
+            <div class="menu-grid fade-up">
+                
+                <!-- Item 01 -->
+                <div class="menu-item">
+                    <div class="menu-photo" style="background-image: url('images/guriko_burger.jpg');"></div>
+                    <span class="menu-name">特製ハンバーガー</span>
+                    <p class="menu-desc">自家製バンズと、ハンバーグの名店〝みかげ〟さん監修のパティ。トマトをじっくり煮込んだソースと糸島レモンの相性がバツグン！地元の野菜をたっぷり挟んだ自慢の一品。</p>
+                </div>
+
+                <!-- Item 02 -->
+                <div class="menu-item">
+                    <div class="menu-photo" style="background-image: url('images/guriko_soup.jpg');"></div>
+                    <span class="menu-name">スープランチ</span>
+                    <p class="menu-desc">自家製パンとサラダ、具沢山のスープでほっと温まるセット。</p>
+                </div>
+
+                <!-- Item 03 -->
+                <div class="menu-item">
+                    <div class="menu-photo" style="background-image: url('images/guriko_cake.jpg');"></div>
+                    <span class="menu-name">本日のスイーツ</span>
+                    <p class="menu-desc">チーズケーキやガトーショコラやプリンなど全て自家製。食後のコーヒーに合う手作りスイーツ。</p>
+                </div>
+
+                <!-- Item 04 -->
+                <div class="menu-item">
+                    <div class="menu-photo" style="background-image: url('images/guriko_coffee.jpg');"></div>
+                    <span class="menu-name">ハンドドリップコーヒー</span>
+                    <p class="menu-desc">豆の個性を引き出す丁寧なドリップ。テイクアウトも可能です。</p>
+                </div>
+
+                <!-- Item 05 -->
+                <div class="menu-item">
+                    <div class="menu-photo" style="background-image: url('images/guriko_bread.jpg');"></div>
+                    <span class="menu-name">自家製パン販売</span>
+                    <p class="menu-desc">毎朝焼き上げるパンは、ランチでも提供中。お土産にもどうぞ。</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INFORMATION -->
+    <section class="fade-up" style="padding: 0 20px;">
+        <div class="container">
+            <div class="info-box">
+                <div class="section-header text-center" style="margin-bottom: 40px;">
+                    <span class="eng-label">INFORMATION</span>
+                    <h2 class="section-title">店舗情報</h2>
+                </div>
+                
+                <dl class="info-dl">
+                    <dt>OPEN</dt>
+                    <dd>水曜日・木曜日・金曜日<br>12:00 - 16:00 (L.O. 15:30)</dd>
+
+                    <dt>ADDRESS</dt>
+                    <dd>〒819-1116<br>福岡県糸島市前原中央3-18-15<br>(Greenchord 内)</dd>
+
+                    <dt>ACCESS</dt>
+                    <dd>JR筑肥線「筑前前原駅」北口より徒歩5分<br>※駐車場は近隣のコインパーキングをご利用ください。</dd>
+
+                    <dt>OTHER</dt>
+                    <dd>Wi-Fi完備 / 電源あり / お子様連れ歓迎 / ベビーカー入店可</dd>
+                </dl>
+
+                <div class="text-center" style="margin-top: 50px;">
+                    <p style="margin-bottom: 30px; color: var(--text-sub);">
+                        その日のランチメニューや、<br>
+                        急なお休みなどの最新情報はInstagramをご確認ください。
+                    </p>
+                    <a href="https://www.instagram.com/kissaguriko/" target="_blank" class="btn-insta">
+                        <span>📷</span> Check Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner fade-up">
+            <div class="logo-area">NOMADO inc.</div>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+            </div>
+            <p class="copyright">© 2025 NOMADO inc.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

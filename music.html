@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenchord | NOMADO inc.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- Greenchord Page Styles (Final Polish) --- */
+        :root {
+            --accent-green: #5c7c64; /* テーマカラー：セージグリーン */
+            --text-on-green: #ffffff;
+        }
+
+        /* ページヘッダー（白グラデーション） */
+        .page-header {
+            height: 80vh;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 0;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, 
+                rgba(255,255,255,0.4) 0%, 
+                rgba(255,255,255,0.7) 60%, 
+                rgba(255,255,255,1) 100%);
+            z-index: 0;
+            backdrop-filter: blur(2px);
+        }
+        .page-header-content {
+            z-index: 1;
+            text-align: center;
+            width: 100%;
+            padding: 0 20px;
+            animation: floatUp 1.5s ease-out;
+        }
+        .header-logo-img {
+            max-width: 260px;
+            width: 60%;
+            height: auto;
+            margin-bottom: 25px;
+            opacity: 0.95; 
+        }
+        .page-sub {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            line-height: 2.2; /* 行間を広げて読みやすく */
+            color: var(--text-main);
+            letter-spacing: 0.15em;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+
+        /* セクション共通 */
+        .text-section { padding: 100px 20px; }
+        .simple-text { font-size: 1rem; line-height: 2.2; color: var(--text-sub); }
+        
+        /* ミニマル年表 (Timeline) */
+        .history-timeline {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-family: var(--font-en);
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+        .history-item { position: relative; }
+        .history-item:not(:last-child)::after {
+            content: '—';
+            margin-left: 20px;
+            color: var(--line-gray);
+        }
+        @media (max-width: 768px) {
+            .history-timeline { flex-direction: column; gap: 15px; align-items: center; }
+            .history-item:not(:last-child)::after { content: ''; display: none; }
+        }
+
+        /* 緑背景セクション（没入感） */
+        .section-green {
+            background-color: var(--accent-green);
+            color: var(--text-on-green);
+            padding: 120px 20px;
+            position: relative;
+        }
+        .section-green .eng-label { color: rgba(255,255,255,0.7); }
+        .section-green .section-title { color: #fff; }
+        .section-green .simple-text { color: rgba(255,255,255,0.95); }
+
+        /* 写真グリッド（4枚構成：多世代・多様性） */
+        .photo-grid-mixed {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+        }
+        @media (max-width: 768px) { .photo-grid-mixed { grid-template-columns: 1fr; gap: 20px; } }
+        
+        .photo-item {
+            width: 100%;
+            aspect-ratio: 4 / 3; 
+            object-fit: cover;
+            border-radius: 2px;
+            filter: grayscale(20%);
+            transition: 0.6s ease;
+        }
+        .photo-item:hover { filter: grayscale(0%); transform: scale(1.02); }
+
+        /* スタジオ・機材エリアのレイアウト */
+        .equip-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 60px auto 0;
+            align-items: center;
+        }
+        .equip-img {
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            filter: contrast(1.05);
+        }
+        .equip-desc { padding: 20px; }
+        @media (max-width: 768px) { .equip-layout { grid-template-columns: 1fr; } }
+
+        /* パララックス背景（野外イベント） */
+        .parallax-bg {
+            background-image: url('images/gc_otocamp_wide.jpg');
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .parallax-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+        }
+        .parallax-content {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            text-align: center;
+            padding: 0 20px;
+        }
+        @media (max-width: 768px) { .parallax-bg { background-attachment: scroll; } }
+
+        /* Spec Cards (白背景用) */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .spec-card-white {
+            background: #fff;
+            border: 1px solid var(--line-gray);
+            padding: 40px 30px;
+            border-radius: 4px;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+        }
+        .spec-card-white .card-title {
+            font-family: var(--font-en);
+            font-size: 1.1rem;
+            color: var(--accent-green);
+            margin-bottom: 20px;
+            display: block;
+            border-bottom: 1px solid var(--line-gray);
+            padding-bottom: 10px;
+        }
+        .spec-list-dark {
+            list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: var(--text-sub); line-height: 1.8; flex: 1;
+        }
+        .spec-list-dark li { margin-bottom: 10px; display: flex; justify-content: space-between; }
+
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-inner">
+            <span class="loader-text">Greenchord</span>
+            <div class="loader-line"></div>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="header-logo">NOMADO inc.</div>
+        <div class="menu-btn" id="menuBtn"><span></span><span></span></div>
+    </header>
+
+    <nav id="navOverlay">
+        <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">TOP</a></li>
+            <li><a href="music.html" class="nav-link">Greenchord</a></li>
+            <li><a href="festival.html" class="nav-link" style="font-family: var(--font-sans);">駄菓子屋ROCK</a></li>
+            <li><a href="guriko.html" class="nav-link" style="font-family: var(--font-sans);">喫茶ぐりこ</a></li>
+            <li><a href="yorunoma.html" class="nav-link">BAR yorunoma</a></li>
+            <li><a href="contact.html" class="nav-link contact">お問合せ</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="page-header" style="background-image: url('images/greenchord_kominka_forest.jpg');">
+        <div class="page-header-content">
+            <img src="images/greenchord_logo.png" alt="Greenchord" class="header-logo-img">
+            <p class="page-sub">
+                森のそばで、音と暮らす。<br>
+                おとなも、子どもも。<br>
+                糸島の小さな音楽拠点。
+            </p>
+        </div>
+    </section>
+
+    <!-- ABOUT (文化・拠点としての思想) -->
+    <section id="about" class="fade-up text-section">
+        <div class="container narrow text-center">
+            <span class="eng-label">ABOUT</span>
+            <p class="simple-text">
+                糸島の山間にある古民家から生まれた、音の拠点。<br>
+                <br>
+                2015年のオープン以来、<br>
+                音楽を愛する人と、この土地で暮らす人々が交わりながら、<br>
+                ゆっくりと文化を育ててきました。<br>
+                <br>
+                ここは、うまさを競う場所ではなく、<br>
+                生活の中に「音」を取り戻す場所です。
+            </p>
+
+            <!-- 歴史軸の提示 -->
+            <div class="history-timeline">
+                <span class="history-item">2015 — Greenchord start</span>
+                <span class="history-item">2025 — OTO CAMP final</span>
+                <span class="history-item">Next — New Festival</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHOTO GRID (多世代の交流・日常) -->
+    <section class="fade-up">
+        <div class="photo-grid-mixed">
+            <!-- 1. 子ども -->
+            <img src="images/gc_kids_music.jpg" alt="子どもたちの音楽レッスン" class="photo-item">
+            <!-- 2. 高齢者 -->
+            <img src="images/gc_senior_lesson.jpg" alt="シニア向け音楽レッスン" class="photo-item">
+            <!-- 3. ギターレッスン -->
+            <img src="images/gc_lesson_guitar.jpg" alt="ギターレッスン" class="photo-item">
+            <!-- 4. ドラムレッスン -->
+            <img src="images/gc_lesson_drum.jpg" alt="ドラムレッスン" class="photo-item">
+        </div>
+        <div class="container text-center" style="margin-bottom: 80px;">
+            <p class="simple-text" style="font-size: 0.9rem;">
+                3歳の子どもから、80代のシニアまで。<br>
+                世代を超えて、音が鳴り響いています。
+            </p>
+        </div>
+    </section>
+
+    <!-- CONCEPT -->
+    <section id="concept" class="fade-up text-section" style="padding-top: 0;">
+        <div class="container narrow text-center">
+            <span class="eng-label">CONCEPT</span>
+            <ul class="concept-list" style="margin-top:20px;">
+                <li>技術よりも、感性を。</li>
+                <li>正解よりも、表現を。</li>
+                <li>ハレの日よりも、いつもの日常を。</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- STUDIO & EQUIPMENTS (深緑の没入空間) -->
+    <section class="section-green fade-up">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="eng-label">SPACE & SOUND</span>
+                <h2 class="section-title">Sounds in the Forest</h2>
+            </div>
+            
+            <!-- 写真(左) + テキスト(右) -->
+            <div class="equip-layout">
+                <img src="images/gc_studio_live.jpg" class="equip-img" alt="スタジオライブの様子">
+                <div class="equip-desc">
+                    <h3 style="font-family:var(--font-en); font-size:1.5rem; margin-bottom:20px; color:#fff;">Live & Session</h3>
+                    <p class="simple-text">
+                        森の静寂に包まれた防音スタジオ。<br>
+                        ここではバンド練習だけでなく、<br>
+                        窓の外の緑を背景にした小さなライブやセッションも行われます。<br>
+                        演奏する人と聴く人の境界線が溶けるような、親密な時間です。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 機材写真(右) + テキスト(左) -->
+            <div class="equip-layout" style="margin-top: 60px; direction: rtl;">
+                <img src="images/gc_equipments.jpg" class="equip-img" alt="スタジオ機材" style="direction: ltr;">
+                <div class="equip-desc" style="direction: ltr; text-align: left;">
+                    <h3 style="font-family:var(--font-en); font-size:1.5rem; margin-bottom:20px; color:#fff;">Equipments</h3>
+                    <p class="simple-text">
+                        ビンテージのアンプや、手入れされたドラムセット。<br>
+                        プロユースの機材も揃え、<br>
+                        「いい音」で鳴らす喜びを提供します。<br>
+                        機材の詳細リストは現地にてご確認ください。
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SPEC & PRICE (カード高さ揃え) -->
+    <section id="spec" class="fade-up text-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="eng-label">FACILITIES & PRICE</span>
+                <h2 class="section-title" style="color:var(--text-main);">Information</h2>
+            </div>
+
+            <div class="spec-grid">
+                <!-- Card 1 -->
+                <article class="spec-card-white">
+                    <span class="card-title">Studio Spec</span>
+                    <ul class="spec-list-dark">
+                        <li><span>Type</span><span>防音スタジオ（古民家改装）</span></li>
+                        <li><span>Capacity</span><span>バンド編成可 / 5〜6名程度</span></li>
+                        <li><span>Use</span><span>練習 / レッスン / 配信 / 簡易ライブ</span></li>
+                        <li><span>Wi-Fi</span><span>完備</span></li>
+                    </ul>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="spec-card-white">
+                    <span class="card-title">Equipments List</span>
+                    <p class="simple-text" style="font-size: 0.9rem; margin-bottom: 15px;">
+                        主な常設機材
+                    </p>
+                    <ul class="spec-list-dark">
+                        <li><span>Drums</span><span>Pearl / CANOPUS</span></li>
+                        <li><span>Guitar Amp</span><span>Fender Twin Reverb / Roland JC-120</span></li>
+                        <li><span>Bass Amp</span><span>Ampeg / Markbass</span></li>
+                        <li><span>Piano</span><span>Upright Piano / Rhodes (要確認)</span></li>
+                    </ul>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="spec-card-white">
+                    <span class="card-title">Price</span>
+                    <ul class="spec-list-dark">
+                        <li><span>個人利用 (レッスン等)</span><span>¥4,000 / 月 (詳細要問合せ)</span></li>
+                        <li><span>スタジオ貸切</span><span>¥500〜 / 1h (1名あたり)</span></li>
+                        <li><span>イベント利用</span><span>応相談</span></li>
+                    </ul>
+                    <span style="display:block; margin-top:20px; font-size:0.8rem; color:#999; text-align:right; margin-top:auto;">
+                        ※料金の詳細は、利用形態により異なります。<br>お問い合わせまたはInstagram DMよりご確認ください。
+                    </span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+<!-- PARALLAX HERO (OTO CAMP - 物語の第一章として) -->
+    <section class="parallax-bg fade-up">
+        <div class="parallax-content">
+            <h2 class="section-title" style="color:#fff; font-size: 2.5rem; text-shadow: 0 5px 20px rgba(0,0,0,0.5); margin-bottom: 0;">OTO CAMP</h2>
+            <span style="display:block; font-family:var(--font-en); font-size:1.1rem; letter-spacing:0.2em; margin: 10px 0 25px 0; text-shadow: 0 2px 10px rgba(0,0,0,0.5); opacity:0.9;">2017 - 2025</span>
+            
+            <p style="font-size: 1.1rem; letter-spacing: 0.1em; text-shadow: 0 2px 10px rgba(0,0,0,0.5); line-height: 1.8;">
+                大自然の下で、音と遊ぶ。<br>
+                Greenchordから始まった、野外音楽イベント。<br>
+                <br>
+                2025年、ひとつの区切りを迎えました。<br><br>
+                けれど、これは終わりの始まり。<br>
+                新たな「祭」に向けて物語はまだ続いていきます。
+            </p>
+        </div>
+    </section>
+
+    <!-- ACTIVITIES & COMMUNITY (NOMADOの思想へ接続) -->
+    <section id="activities" class="fade-up text-section">
+        <div class="container narrow text-center">
+            <span class="eng-label">ACTIVITIES</span>
+            <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 30px; color:var(--text-main);">What we do</h2>
+            
+            <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom: 60px;">
+                <span style="border:1px solid #ddd; padding:8px 20px; border-radius:20px; font-size:0.9rem;">ギター・ウクレレ教室</span>
+                <span style="border:1px solid #ddd; padding:8px 20px; border-radius:20px; font-size:0.9rem;">ドラム・カホン教室</span>
+                <span style="border:1px solid #ddd; padding:8px 20px; border-radius:20px; font-size:0.9rem;">ブンネ・メソッド（福祉音楽）</span>
+                <span style="border:1px solid #ddd; padding:8px 20px; border-radius:20px; font-size:0.9rem;">スタジオ貸し</span>
+                <span style="border:1px solid #ddd; padding:8px 20px; border-radius:20px; font-size:0.9rem;">ワークショップ</span>
+                <span style="border:1px solid #ddd; padding:8px 20px; border-radius:20px; font-size:0.9rem;">野外イベント主催</span>
+            </div>
+
+            <!-- 最後の集合写真 -->
+            <img src="images/gc_community_snap.jpg" style="width:100%; height:auto; border-radius:2px; filter:grayscale(10%); opacity:0.9;" alt="Community">
+            
+            <!-- NOMADOの思想を語るコピー -->
+            <div style="margin-top: 40px; padding: 0 10px;">
+                <p class="simple-text" style="font-size: 1rem; color: var(--text-main); font-weight: 500;">
+                    音楽を通じて、人と地域がつながる。<br>
+                    Greenchordは、そんな風景を静かに育ててきました。<br>
+                    <br>
+                    そしてその先にあるのは、もっと大きな「祭り」のような時間。<br>
+                    まだ名前のない、新しい音の集まりへ。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTAGRAM -->
+    <section id="instagram" style="background:var(--bg-light); padding:80px 20px; text-align:center;" class="fade-up">
+        <div class="container">
+            <p class="simple-text" style="margin-bottom: 30px;">
+                日々の教室の様子や、スタジオの空き状況、<br>
+                イベントのお知らせはInstagramで更新しています。
+            </p>
+            <!-- リンク修正済み -->
+            <a href="https://www.instagram.com/greenchord2015/" target="_blank" class="btn-insta" style="border:1px solid var(--text-main); color:var(--text-main); text-decoration:none; padding:15px 40px; display:inline-block;">
+                📷 View on Instagram
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner fade-up">
+            <div class="logo-area">NOMADO inc.</div>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+            </div>
+            <p class="copyright">© 2025 NOMADO inc.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

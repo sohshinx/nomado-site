@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company | NOMADO inc.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- Company Page Specific Styles --- */
+        :root {
+            --accent-color: #333; /* 会社ページはニュートラルに */
+        }
+
+        /* Hero Section (コンパクト) */
+        .company-header {
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 80px;
+        }
+        .company-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.3); /* 白いフィルターで上品に */
+            backdrop-filter: blur(2px);
+            z-index: 0;
+        }
+        .header-content {
+            z-index: 1;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .company-copy {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+        }
+        .company-sub {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            line-height: 2.0;
+        }
+
+        /* Philosophy */
+        .philosophy-text {
+            font-size: 1.05rem;
+            line-height: 2.4;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Timeline (年表) */
+        .timeline-box {
+            position: relative;
+            margin: 60px auto 0;
+            padding-left: 20px;
+            border-left: 1px solid var(--line-gray);
+            max-width: 400px;
+            text-align: left;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 20px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px; /* ボーダー上に来るように調整 */
+            top: 6px;
+            width: 7px;
+            height: 7px;
+            background: var(--text-main);
+            border-radius: 50%;
+        }
+        .timeline-year {
+            font-family: var(--font-en);
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+        .timeline-item.future .timeline-year {
+            color: var(--accent-green); /* 未来は色を変えるなど */
+        }
+        .timeline-item.future::before {
+            background: #fff;
+            border: 1px solid var(--accent-green);
+        }
+
+        /* Company Info Table */
+        .company-dl {
+            display: flex;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--line-gray);
+            margin: 0;
+        }
+        .company-dl div {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--line-gray);
+            padding: 20px 0;
+        }
+        .company-dl dt {
+            width: 30%;
+            font-weight: 600;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+        }
+        .company-dl dd {
+            width: 70%;
+            margin: 0;
+            color: var(--text-sub);
+        }
+        @media (max-width: 768px) {
+            .company-dl div { flex-direction: column; }
+            .company-dl dt { width: 100%; margin-bottom: 8px; }
+            .company-dl dd { width: 100%; }
+        }
+
+        /* Business & Location Cards */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .simple-card {
+            background: #fff;
+            border: 1px solid var(--line-gray);
+            padding: 30px;
+            border-radius: 4px;
+            transition: 0.3s;
+            text-align: left;
+        }
+        .simple-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+        .card-icon {
+            font-family: var(--font-en);
+            font-size: 1.2rem;
+            color: #999;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .card-head {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .card-body {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            line-height: 1.8;
+        }
+        .card-link {
+            display: block;
+            margin-top: 20px;
+            font-family: var(--font-en);
+            font-size: 0.85rem;
+            text-decoration: underline;
+            color: var(--text-main);
+        }
+
+        /* Access Map */
+        .map-container {
+            width: 100%;
+            height: 350px;
+            background: #eee;
+            margin-top: 30px;
+        }
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: grayscale(100%); /* 地図をモノクロにしてトンマナを合わせる */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-inner">
+            <span class="loader-text">COMPANY</span>
+            <div class="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- ヘッダー -->
+    <header class="site-header">
+        <div class="header-logo">NOMADO inc.</div>
+        <div class="menu-btn" id="menuBtn">
+            <span></span><span></span>
+        </div>
+    </header>
+
+    <!-- ナビゲーション -->
+    <nav id="navOverlay">
+        <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">TOP</a></li>
+            <li><a href="music.html" class="nav-link">Greenchord</a></li>
+            <li><a href="festival.html" class="nav-link" style="font-family: var(--font-sans);">駄菓子屋ROCK</a></li>
+            <li><a href="guriko.html" class="nav-link" style="font-family: var(--font-sans);">喫茶ぐりこ</a></li>
+            <li><a href="yorunoma.html" class="nav-link">BAR yorunoma</a></li>
+            <li><a href="contact.html" class="nav-link contact">お問合せ</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO: 日常の中の文化拠点 -->
+    <!-- 糸島の風景写真などを指定してください -->
+    <section class="company-header" style="background-image: url('images/greenchord_kominka_forest.jpg');">
+        <div class="header-content fade-up">
+            <h1 class="company-copy">日常のなかに、<br>小さな文化拠点を。</h1>
+            <p class="company-sub">
+                株式会社ノマドウは、<br>
+                糸島を拠点に文化・音楽・地域活動を行う<br>
+                コミュニティ・カンパニーです。
+            </p>
+        </div>
+    </section>
+
+    <!-- PHILOSOPHY & TIMELINE -->
+    <section id="philosophy" class="fade-up" style="padding: 0 20px 100px;">
+        <div class="container narrow text-center">
+            <span class="eng-label">PHILOSOPHY</span>
+            <div class="philosophy-text">
+                <p>
+                    私たちは、地域の暮らしの中にある<br>
+                    文化の芽を大切にしています。<br><br>
+                    音楽、遊び、食、交流。<br>
+                    「場」をつくり、人が集まることで、<br>
+                    自然と何かが生まれる循環を<br>
+                    糸島の地から育てていきます。
+                </p>
+            </div>
+
+            <!-- TIMELINE: 文化の軌跡 -->
+            <div class="timeline-box">
+                <div class="timeline-item">
+                    <span class="timeline-year">2015</span>
+                    <span class="timeline-desc">Greenchord start - 音楽拠点の誕生</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2020</span>
+                    <span class="timeline-desc">Expansion of community activities - 地域活動の拡大</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2025</span>
+                    <span class="timeline-desc">OTO CAMP Final - 野外フェスの区切り</span>
+                </div>
+                <div class="timeline-item future">
+                    <span class="timeline-year">Next</span>
+                    <span class="timeline-desc">New Festival & Future Culture - 次なる文化へ</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPANY INFO -->
+    <section id="outline" class="fade-up" style="padding: 80px 20px; background: var(--bg-light);">
+        <div class="container narrow">
+            <div class="section-header text-center">
+                <span class="eng-label">COMPANY PROFILE</span>
+                <h2 class="section-title">会社概要</h2>
+            </div>
+            
+            <dl class="company-dl">
+                <div>
+                    <dt>社名</dt>
+                    <dd>株式会社ノマドウ / NOMADO inc.</dd>
+                </div>
+                <div>
+                    <dt>代表</dt>
+                    <dd>福田亮介</dd>
+                </div>
+                <div>
+                    <dt>所在地</dt>
+                    <dd>〒819-1616 福岡県糸島市二丈武3-7-5</dd>
+                </div>
+                <!-- 設立年は必要に応じて修正してください -->
+                <div>
+                    <dt>設立</dt>
+                    <dd>2025年11月4日</dd>
+                </div>
+                <div>
+                    <dt>事業内容</dt>
+                    <dd>
+                        音楽事業<br>
+                        お祭り事業<br>
+                        飲食事業<br>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </section>
+
+    <!-- BUSINESS -->
+    <section id="business" class="fade-up" style="padding: 100px 20px;">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="eng-label">BUSINESS</span>
+                <h2 class="section-title">事業領域</h2>
+            </div>
+
+            <div class="grid-cards">
+                <div class="simple-card">
+                    <span class="card-icon">01</span>
+                    <span class="card-head">地域文化事業</span>
+                    <p class="card-body">
+                        地域に根ざしたイベントやお祭りの企画・運営を行い、世代を超えた交流と文化の醸成を図ります。
+                    </p>
+                </div>
+                <div class="simple-card">
+                    <span class="card-icon">02</span>
+                    <span class="card-head">音楽・教育事業</span>
+                    <p class="card-body">
+                        スタジオ運営や音楽教室、福祉音楽（ブンネ・メソッド）を通じ、生活の中に「音」のある豊かさを提供します。
+                    </p>
+                </div>
+                <div class="simple-card">
+                    <span class="card-icon">03</span>
+                    <span class="card-head">飲食・コミュニティ</span>
+                    <p class="card-body">
+                        カフェやバーの運営を通じて、地域の人々と訪れる人々が交わり、安らげる居場所をつくります。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATIONS -->
+    <section id="locations" class="fade-up" style="padding: 0 20px 100px;">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="eng-label">LOCATIONS / BRANDS</span>
+                <h2 class="section-title">運営拠点</h2>
+            </div>
+
+            <div class="grid-cards">
+                <!-- Greenchord -->
+                <a href="music.html" class="simple-card">
+                    <span class="card-head" style="color: #5c7c64;">Greenchord</span>
+                    <p class="card-body">糸島の森のそばにある、音楽スタジオと教室。</p>
+                    <span class="card-link">View Page &rarr;</span>
+                </a>
+                
+                <!-- Dagashiya ROCK -->
+                <a href="festival.html" class="simple-card">
+                    <span class="card-head" style="color: #d94d36;">駄菓子屋ROCK</span>
+                    <p class="card-body">昔懐かしい遊びと駄菓子で、お祭りをつくる。</p>
+                    <span class="card-link">View Page &rarr;</span>
+                </a>
+
+                <!-- Kissa Guriko -->
+                <a href="guriko.html" class="simple-card">
+                    <span class="card-head" style="color: #d68c45;">喫茶ぐりこ</span>
+                    <p class="card-body">水木金のお昼にオープンする、まちの喫茶店。</p>
+                    <span class="card-link">View Page &rarr;</span>
+                </a>
+
+                <!-- Yorunoma -->
+                <a href="yorunoma.html" class="simple-card">
+                    <span class="card-head" style="color: #2c3e50;">BAR yorunoma</span>
+                    <p class="card-body">夜の語らいの場。地域密着のバー。</p>
+                    <span class="card-link">View Page &rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACCESS -->
+    <section id="access" class="fade-up" style="padding: 0 20px 100px; background:var(--bg-light);">
+        <div class="container narrow text-center">
+            <span class="eng-label">ACCESS</span>
+            <h2 class="section-title">アクセス</h2>
+            <p style="margin-top:20px; color:var(--text-sub);">
+                〒819-1116 福岡県糸島市前原中央3-18-15<br>
+                (Greenchord 内)
+            </p>
+            
+            <div class="map-container">
+                <!-- Google Maps Embed -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3323.476483163749!2d130.1916!3d33.5583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3541e9c5b5b5b5b5%3A0x1234567890abcdef!2z56aP5bKh55yM57O45bO25biC5YmN5Y6f5Lit5aSu77yT5LiB55uu77yR77yY4oiS77yR77yV!5e0!3m2!1sja!2sjp!4v1600000000000!5m2!1sja!2sjp" 
+                class="map-iframe" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <p style="margin-top:20px; font-size:0.85rem; color:#999;">
+                JR筑肥線「筑前前原駅」より徒歩5分<br>
+                ※駐車場は近隣のコインパーキングをご利用ください。
+            </p>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="footer-inner fade-up">
+            <div class="logo-area">NOMADO inc.</div>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+            </div>
+            <p class="copyright">© 2025 NOMADO inc.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
