@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>yorunoma POS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+
+<style>
+  body { font-family: sans-serif; background: #111; color: #fff; margin: 0; padding: 10px; padding-top: 120px; }
+  
+  /* ヘッダー・チケットエリアの固定 */
+  header {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: #111; z-index: 100; padding: 10px;
+    border-bottom: 1px solid #333;
+  }
+  h1 { margin: 0 0 10px 0; text-align: center; font-size: 1.2rem; }
+  
+  #tickets { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 5px; }
+  .ticket {
+    flex: 0 0 auto; min-width: 150px; background: #222; 
+    padding: 10px; border-radius: 10px; font-size: 12px; border: 1px solid #444;
+  }
+  .ticket.active { background: orange; color: #000; border-color: orange; }
+
+  /* 入力・ボタン */
+  input { width: 100%; padding: 12px; box-sizing: border-box; margin: 10px 0; border-radius: 8px; border: 1px solid #444; background: #222; color: #fff; }
+  button { border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+  
+  #guestBtns { display: flex; gap: 5px; margin-bottom: 10px; }
+  .smallBtn { flex: 1; padding: 8px; background: #444; color: #fff; font-size: 12px; }
+  .activeBtn { background: orange !important; color: #000 !important; }
+
+  #categories { display: flex; overflow-x: auto; gap: 5px; margin-bottom: 10px; }
+  .categoryBtn { padding: 8px 15px; background: #333; color: #fff; white-space: nowrap; }
+
+  .row { display: flex; flex-wrap: wrap; gap: 2%; }
+  .product { background: #333; color: #fff; width: 49%; padding: 15px 5px; margin-bottom: 8px; font-size: 14px; }
+  .pay { background: orange; width: 100%; font-size: 20px; padding: 20px; margin-top: 20px; color: #000; }
+  .pay:disabled { background: #666; cursor: not-allowed; }
+
+  /* 注文リスト */
+  #orderList { list-style: none; padding: 0; border-top: 1px solid #333; margin-top: 20px; }
+  #orderList li { 
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px; border-bottom: 1px solid #222; 
+  }
+  .deleteBtn { color: #ff4444; padding: 5px 10px; font-weight: bold; border: 1px solid #ff4444; border-radius: 5px; }
+  
+  #totalArea { font-size: 1.5rem; text-align: right; margin: 15px 0; font-weight: bold; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>yorunoma</h1>
+  <div id="tickets"></div>
+</header>
+
+<input id="customer" placeholder="お客様名（未入力可）" oninput="updateCustomer()">
+
+<div id="guestBtns"></div>
+<div id="categories"></div>
+<div id="products" class="row"></div>
+
+<ul id="orderList"></ul>
+
+<div id="totalArea">合計 ¥<span id="total">0</span></div>
+
+<button class="pay" onclick="checkout()">会計</button>
+
+<script>
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxaZhS_kFgq1-bIjY9ZemWEmDtYwqex0oZqxIP1VoKPT9bl4XbQCrisqPuQaBtlzUqO/exec";
+const taxRate = 0.1;
+
+let products = [];
+let tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+let currentId = tickets.length ? tickets[0].id : null;
+let currentCat = null;
+
+// ===== 商品読み込み =====
+async function loadProducts() {
+  try {
+    const res = await fetch("products.json");
+    if (!res.ok) throw new Error("File not found");
+    products = await res.json();
+    render();
+  } catch (e) {
+    console.error("商品リストの読み込みに失敗しました。サーバー経由(Live Server等)で実行しているか確認してください。", e);
+    // 開発用ダミーデータ（読み込み失敗時のみ表示）
+    if(products.length === 0) {
+      products = [{name:"(エラー)商品読み込み失敗", price:0, cat:"Error"}];
+      render();
+    }
+  }
+}
+
+// ===== 未送信データの再送 (安全版) =====
+async function retryPending() {
+  let pending = JSON.parse(localStorage.getItem("pending")) || [];
+  if (pending.length === 0) return;
+
+  let remaining = [];
+  for (let p of pending) {
+    try {
+      let res = await fetch(GAS_URL, { method: "POST", body: JSON.stringify(p) });
+      if (!res.ok) throw new Error();
+    } catch (e) {
+      remaining.push(p); // 失敗したものは残す
+    }
+  }
+  
+  if (remaining.length > 0) {
+    localStorage.setItem("pending", JSON.stringify(remaining));
+  } else {
+    localStorage.removeItem("pending");
+  }
+}
+
+// ===== 伝票管理 =====
+function addTicket() {
+  const id = Date.now();
+  tickets.push({id, customer:"", guests:1, items:[], updated:Date.now()});
+  currentId = id;
+  render();
+}
+
+function cur() { return tickets.find(t => t.id === currentId); }
+
+function updateCustomer() {
+  if(!cur()) return;
+  cur().customer = document.getElementById("customer").value;
+  renderTickets();
+}
+
+function setGuests(n) {
+  if(!cur()) return;
+  cur().guests = n;
+  render();
+}
+
+function addItem(p) {
+  let t = cur();
+  if(!t) return;
+  let f = t.items.find(i => i.name === p.name);
+  if (f) f.qty++;
+  else t.items.push({name: p.name, price: p.price, qty: 1});
+  t.updated = Date.now();
+  render();
+}
+
+function removeItem(idx) {
+  let t = cur();
+  t.items[idx].qty--;
+  if (t.items[idx].qty <= 0) t.items.splice(idx, 1);
+  render();
+}
+
+function calc(t) {
+  if(!t) return 0;
+  let sum = t.items.reduce((acc, i) => acc + (i.price * i.qty), 0);
+  return sum + Math.floor(sum * taxRate);
+}
+
+// ===== 特殊入力 =====
+function addCustomItem() {
+  let name = prompt("商品名を入力してください");
+  if (!name) return;
+  let priceStr = prompt("金額を入力してください");
+  if (priceStr === null) return;
+  let price = parseInt(priceStr);
+  if (isNaN(price)) return;
+  addItem({name, price});
+}
+
+function addDiscount() {
+  let priceStr = prompt("割引額を入力してください（例: 500）");
+  if (priceStr === null) return;
+  let price = parseInt(priceStr);
+  if (isNaN(price)) return;
+  addItem({name: "割引", price: -price});
+}
+
+// ===== メイン描画 =====
+function render() {
+  let t = cur();
+  if (!t) { addTicket(); return; }
+
+  renderTickets();
+  renderGuests();
+  renderCategories();
+  renderProducts();
+
+  document.getElementById("customer").value = t.customer;
+
+  // 注文リストの更新
+  const list = document.getElementById("orderList");
+  list.innerHTML = "";
+  t.items.forEach((item, idx) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <div onclick="removeItem(${idx})">${item.name} × ${item.qty}</div>
+      <div class="deleteBtn" onclick="deleteRow(${idx})">✕</div>
+    `;
+    list.appendChild(li);
+  });
+
+  document.getElementById("total").innerText = calc(t).toLocaleString();
+  localStorage.setItem("tickets", JSON.stringify(tickets));
+}
+
+function deleteRow(idx) {
+  cur().items.splice(idx, 1);
+  render();
+}
+
+function renderTickets() {
+  const div = document.getElementById("tickets");
+  div.innerHTML = "";
+  tickets.sort((a,b) => b.updated - a.updated).forEach(t => {
+    const btn = document.createElement("button");
+    btn.className = `ticket ${t.id === currentId ? 'active' : ''}`;
+    btn.innerText = `${t.customer || "新規様"} (${t.guests}名)\n¥${calc(t).toLocaleString()}`;
+    btn.onclick = () => { currentId = t.id; render(); };
+    div.appendChild(btn);
+  });
+  const addBtn = document.createElement("button");
+  addBtn.className = "ticket";
+  addBtn.innerText = "＋ 新規伝票";
+  addBtn.onclick = addTicket;
+  div.appendChild(addBtn);
+}
+
+function renderGuests() {
+  const div = document.getElementById("guestBtns");
+  div.innerHTML = "";
+  [1, 2, 3, 4, 5].forEach(n => {
+    const btn = document.createElement("button");
+    btn.innerText = n + "名";
+    btn.className = `smallBtn ${cur().guests === n ? 'activeBtn' : ''}`;
+    btn.onclick = () => setGuests(n);
+    div.appendChild(btn);
+  });
+}
+
+function renderCategories() {
+  const div = document.getElementById("categories");
+  div.innerHTML = "";
+  const cats = [...new Set(products.map(p => p.cat))];
+  
+  // 「すべて」ボタン
+  const allBtn = document.createElement("button");
+  allBtn.innerText = "すべて";
+  allBtn.className = `categoryBtn ${currentCat === null ? 'activeBtn' : ''}`;
+  allBtn.onclick = () => { currentCat = null; render(); };
+  div.appendChild(allBtn);
+
+  cats.forEach(c => {
+    const btn = document.createElement("button");
+    btn.innerText = c;
+    btn.className = `categoryBtn ${currentCat === c ? 'activeBtn' : ''}`;
+    btn.onclick = () => { currentCat = c; render(); };
+    div.appendChild(btn);
+  });
+}
+
+function renderProducts() {
+  const div = document.getElementById("products");
+  div.innerHTML = "";
+  const filtered = currentCat ? products.filter(p => p.cat === currentCat) : products;
+
+  filtered.forEach(p => {
+    const btn = document.createElement("button");
+    btn.className = "product";
+    btn.innerText = `${p.name}\n¥${p.price}`;
+    btn.onclick = () => addItem(p);
+    div.appendChild(btn);
+  });
+
+  // 固定操作ボタン
+  const customBtn = document.createElement("button");
+  customBtn.className = "product"; customBtn.innerText = "＋自由入力";
+  customBtn.onclick = addCustomItem;
+  div.appendChild(customBtn);
+
+  const discountBtn = document.createElement("button");
+  discountBtn.className = "product"; discountBtn.innerText = "割引";
+  discountBtn.onclick = addDiscount;
+  div.appendChild(discountBtn);
+}
+
+// ===== 会計処理 =====
+async function checkout() {
+  const t = cur();
+  if (!t || t.items.length === 0) return alert("注文がありません");
+
+  const total = calc(t);
+  const detail = t.items.map(i => `${i.name}x${i.qty}`).join("\n");
+  if (!confirm(`${detail}\n\n合計: ¥${total.toLocaleString()}\n会計を完了しますか？`)) return;
+
+  const payload = {
+    date: new Date().toLocaleString('ja-JP'),
+    customer: t.customer,
+    guests: t.guests,
+    total: total,
+    items: t.items
+  };
+
+  const btn = document.querySelector(".pay");
+  btn.disabled = true;
+  btn.innerText = "送信中...";
+
+  try {
+    const res = await fetch(GAS_URL, { method: "POST", body: JSON.stringify(payload) });
+    if (!res.ok) throw new Error();
+  } catch (e) {
+    const pending = JSON.parse(localStorage.getItem("pending")) || [];
+    pending.push(payload);
+    localStorage.setItem("pending", JSON.stringify(pending));
+    alert("通信エラー: 端末に保存しました。次回起動時に自動送信されます。");
+  }
+
+  // 履歴保存
+  const history = JSON.parse(localStorage.getItem("history")) || [];
+  history.push(payload);
+  localStorage.setItem("history", JSON.stringify(history.slice(-100))); // 直近100件
+
+  // 伝票削除
+  tickets = tickets.filter(x => x.id !== t.id);
+  if (tickets.length === 0) addTicket();
+  else currentId = tickets[0].id;
+
+  btn.disabled = false;
+  btn.innerText = "会計";
+  render();
+}
+
+// 起動時実行
+loadProducts();
+retryPending();
+
+</script>
+</body>
+</html>
